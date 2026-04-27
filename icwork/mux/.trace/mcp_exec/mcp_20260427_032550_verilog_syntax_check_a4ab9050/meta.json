@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260427_032550_verilog_syntax_check_a4ab9050",
+  "tool_name": "verilog_syntax_check",
+  "status": "success",
+  "start_ts": 1777260351.008179,
+  "end_ts": 1777260351.037951,
+  "duration_ms": 29,
+  "workspace": "/app/backend/icwork/mux",
+  "trace_root": "/app/backend/icwork/mux/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 1,
+  "summary": {}
+}

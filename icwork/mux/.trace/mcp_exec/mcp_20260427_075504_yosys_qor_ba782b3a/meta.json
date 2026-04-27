@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260427_075504_yosys_qor_ba782b3a",
+  "tool_name": "yosys_qor",
+  "status": "error",
+  "start_ts": 1777276504.1368394,
+  "end_ts": 1777276504.2071147,
+  "duration_ms": 70,
+  "workspace": "/app/backend/icwork/mux",
+  "trace_root": "/app/backend/icwork/mux/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 1,
+  "summary": {}
+}

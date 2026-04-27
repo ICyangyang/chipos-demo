@@ -1,0 +1,12 @@
+// Verilated -*- C++ -*-
+// DESCRIPTION: Verilator output: Tracing declarations
+
+#include "verilated_vcd_c.h"
+
+
+void Vtb_mux2to1___024root__traceDeclTypesSub0(VerilatedVcd* tracep) {
+}
+
+void Vtb_mux2to1___024root__trace_decl_types(VerilatedVcd* tracep) {
+    Vtb_mux2to1___024root__traceDeclTypesSub0(tracep);
+}

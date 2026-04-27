@@ -1,0 +1,5 @@
+{
+  "tool": "yosys_qor",
+  "success": false,
+  "error": "ERROR: File `/opt/nangate/lib/NangateOpenCellLibrary_typical.lib' not found or is a directory\n"
+}

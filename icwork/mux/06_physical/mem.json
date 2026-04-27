@@ -1,0 +1,88 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 12.2.0-14+deb12u1 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "mux2to1": {
+      "attributes": {
+        "hdlname": "mux2to1",
+        "dynports": "00000000000000000000000000000001",
+        "top": "00000000000000000000000000000001",
+        "src": "./designs/src/mux2to1/mux2to1.v:8.1-20.10"
+      },
+      "parameter_default_values": {
+        "DATA_WIDTH": "00000000000000000000000000001000"
+      },
+      "ports": {
+        "in0": {
+          "direction": "input",
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9 ]
+        },
+        "in1": {
+          "direction": "input",
+          "bits": [ 10, 11, 12, 13, 14, 15, 16, 17 ]
+        },
+        "sel": {
+          "direction": "input",
+          "bits": [ 18 ]
+        },
+        "out": {
+          "direction": "output",
+          "bits": [ 19, 20, 21, 22, 23, 24, 25, 26 ]
+        }
+      },
+      "cells": {
+        "$ternary$./designs/src/mux2to1/mux2to1.v:18$992": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "./designs/src/mux2to1/mux2to1.v:18.18-18.33"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5, 6, 7, 8, 9 ],
+            "B": [ 10, 11, 12, 13, 14, 15, 16, 17 ],
+            "S": [ 18 ],
+            "Y": [ 19, 20, 21, 22, 23, 24, 25, 26 ]
+          }
+        }
+      },
+      "netnames": {
+        "in0": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9 ],
+          "attributes": {
+            "src": "./designs/src/mux2to1/mux2to1.v:11.34-11.37"
+          }
+        },
+        "in1": {
+          "hide_name": 0,
+          "bits": [ 10, 11, 12, 13, 14, 15, 16, 17 ],
+          "attributes": {
+            "src": "./designs/src/mux2to1/mux2to1.v:12.34-12.37"
+          }
+        },
+        "out": {
+          "hide_name": 0,
+          "bits": [ 19, 20, 21, 22, 23, 24, 25, 26 ],
+          "attributes": {
+            "src": "./designs/src/mux2to1/mux2to1.v:14.34-14.37"
+          }
+        },
+        "sel": {
+          "hide_name": 0,
+          "bits": [ 18 ],
+          "attributes": {
+            "src": "./designs/src/mux2to1/mux2to1.v:13.35-13.38"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260427_032554_yosys_synthesis_3b1c35ed",
+  "tool_name": "yosys_synthesis",
+  "status": "error",
+  "start_ts": 1777260354.0826223,
+  "end_ts": 1777260354.323894,
+  "duration_ms": 241,
+  "workspace": "/app/backend/icwork/mux",
+  "trace_root": "/app/backend/icwork/mux/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 1,
+  "summary": {}
+}

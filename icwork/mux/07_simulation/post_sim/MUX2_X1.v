@@ -1,0 +1,1 @@
+../../01_rtl/cell_lib/MUX2_X1.v

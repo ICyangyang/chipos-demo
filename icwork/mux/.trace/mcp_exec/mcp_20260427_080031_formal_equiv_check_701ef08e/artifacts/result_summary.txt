@@ -1,0 +1,7 @@
+{
+  "tool": "formal_equiv_check",
+  "success": true,
+  "equivalent": false,
+  "method": "formal",
+  "details": "Warning: No SAT model available for cell _6__gate (MUX2_X1).\nWarning: No SAT model available for cell _5__gate (MUX2_X1).\nWarning: No SAT model available for cell _4__gate (MUX2_X1).\nWarning: No SAT model available for cell _3__gate (MUX2_X1).\nWarning: No SAT model available for cell _2__gate (MUX2_X1).\nWarning: No SAT model available for cell _1__gate (MUX2_X1).\nWarning: No SAT model available for cell _0__gate (MUX2_X1).\nWarning: No SAT model available for cell _7__gate (MUX2_X1).\nERROR: Found 8 unproven $equiv cells in 'equiv_status -assert'.\n"
+}
