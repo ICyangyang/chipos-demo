@@ -1,0 +1,136 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 12.2.0-14+deb12u1 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "lfsr_4bit": {
+      "attributes": {
+        "hdlname": "lfsr_4bit",
+        "top": "00000000000000000000000000000001",
+        "src": "/opt/OpenROAD-flow-scripts/flow/designs/src/lfsr_4bit/lfsr_4bit.v:2.1-24.10"
+      },
+      "ports": {
+        "clk": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "res": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "y": {
+          "direction": "output",
+          "bits": [ 4 ]
+        }
+      },
+      "cells": {
+        "$auto$alumacc.cc:512:replace_alu$1000": {
+          "hide_name": 1,
+          "type": "$alu",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/opt/OpenROAD-flow-scripts/flow/designs/src/lfsr_4bit/lfsr_4bit.v:20.17-20.28"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "BI": "input",
+            "CI": "input",
+            "CO": "output",
+            "X": "output",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 4 ],
+            "B": [ 5 ],
+            "BI": [ "0" ],
+            "CI": [ "0" ],
+            "CO": [ 6 ],
+            "X": [ 7 ],
+            "Y": [ 8 ]
+          }
+        },
+        "$procdff$999": {
+          "hide_name": 1,
+          "type": "$adff",
+          "parameters": {
+            "ARST_POLARITY": "00000000000000000000000000000000",
+            "ARST_VALUE": "1111",
+            "CLK_POLARITY": "1",
+            "WIDTH": "00000000000000000000000000000100"
+          },
+          "attributes": {
+            "src": "/opt/OpenROAD-flow-scripts/flow/designs/src/lfsr_4bit/lfsr_4bit.v:13.1-22.4"
+          },
+          "port_directions": {
+            "ARST": "input",
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "ARST": [ 3 ],
+            "CLK": [ 2 ],
+            "D": [ 9, 10, 5, 8 ],
+            "Q": [ 4, 9, 10, 5 ]
+          }
+        }
+      },
+      "netnames": {
+        "$0\\d[3:0]": {
+          "hide_name": 1,
+          "bits": [ 9, 10, 5, 8 ],
+          "attributes": {
+            "src": "/opt/OpenROAD-flow-scripts/flow/designs/src/lfsr_4bit/lfsr_4bit.v:13.1-22.4"
+          }
+        },
+        "$auto$alumacc.cc:528:replace_alu$1001": {
+          "hide_name": 1,
+          "bits": [ 7 ],
+          "attributes": {
+            "unused_bits": "0 "
+          }
+        },
+        "$auto$alumacc.cc:529:replace_alu$1002": {
+          "hide_name": 1,
+          "bits": [ 6 ],
+          "attributes": {
+            "unused_bits": "0 "
+          }
+        },
+        "clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/opt/OpenROAD-flow-scripts/flow/designs/src/lfsr_4bit/lfsr_4bit.v:3.18-3.21"
+          }
+        },
+        "d": {
+          "hide_name": 0,
+          "bits": [ 4, 9, 10, 5 ],
+          "attributes": {
+            "src": "/opt/OpenROAD-flow-scripts/flow/designs/src/lfsr_4bit/lfsr_4bit.v:9.11-9.12"
+          }
+        },
+        "res": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/opt/OpenROAD-flow-scripts/flow/designs/src/lfsr_4bit/lfsr_4bit.v:4.18-4.21"
+          }
+        },
+        "y": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/opt/OpenROAD-flow-scripts/flow/designs/src/lfsr_4bit/lfsr_4bit.v:5.18-5.19"
+          }
+        }
+      }
+    }
+  }
+}

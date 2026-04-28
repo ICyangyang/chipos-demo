@@ -1,0 +1,24 @@
+{
+  "tool": "verilog_simulate",
+  "success": true,
+  "compile_success": true,
+  "report_path": "/app/backend/icwork/lfsr/03_verification/sim/report_20260428_014838.txt",
+  "artifacts": [
+    "/app/backend/icwork/lfsr/03_verification/sim/report_20260428_014838.txt"
+  ],
+  "selected_backend": "verilator",
+  "fallback_triggered": false,
+  "attempts": [
+    {
+      "backend": "verilator",
+      "success": true,
+      "phase": "",
+      "error_category": "",
+      "duration_ms": 5209
+    }
+  ],
+  "sim_stdout": "\n========================================\n4-bit LFSR TestBench\nCharacteristic Polynomial: x^4 + x + 1\nMaximum Period: 15 cycles\n========================================\nStart time: 0\n\n========================================\nTEST 1: Reset Initialization\n========================================\n[INFO] Applying reset...\n[INFO] Reset released at time 10\n[PASS] Reset test: y=1 (expected 1)\n----------------------------------------\n\n========================================\nTEST 2: Full Sequence Verification\n========================================\n[INFO] Applying reset...\n[INFO] Reset released at time 30\n[INFO] Cycle  0: y=1 (expected y=1)\n[INFO] Cycle  1: y=1 (expected y=1)\n[INFO] Cycle  2: y=1 (expected y=1)\n[INFO] Cycle  3: y=1 (expected y=1)\n[INFO] Cycle  4: y=0 (expected y=0)\n[INFO] Cycle  5: y=1 (expected y=1)\n[INFO] Cycle  6: y=0 (expected y=0)\n[INFO] Cycle  7: y=1 (expected y=1)\n[INFO] Cycle  8: y=1 (expected y=1)\n[INFO] Cycle  9: y=0 (expected y=0)\n[INFO] Cycle 10: y=0 (expected y=0)\n[INFO] Cycle 11: y=1 (expected y=1)\n[INFO] Cycle 12: y=0 (expected y=0)\n[INFO] Cycle 13: y=0 (expected y=0)\n[INFO] Cycle 14: y=0 (expected y=0)\n\nSequence Comparison:\n----------------------------------------\n[PASS] Cycle  0: y=1 matches expected\n[PASS] Cycle  1: y=1 matches expected\n[PASS] Cycle  2: y=1 matches expected\n[PASS] Cycle  3: y=1 matches expected\n[PASS] Cycle  4: y=0 matches expected\n[PASS] Cycle  5: y=1 matches expected\n[PASS] Cycle  6: y=0 matches expected\n[PASS] Cycle  7: y=1 matches expected\n[PASS] Cycle  8: y=1 matches expected\n[PASS] Cycle  9: y=0 matches expected\n[PASS] Cycle 10: y=0 matches expected\n[PASS] Cycle 11: y=1 matches expected\n[PASS] Cycle 12: y=0 matches expected\n[PASS] Cycle 13: y=0 matches expected\n[PASS] Cycle 14: y=0 matches expected\n----------------------------------------\n\n========================================\nTEST 3: Periodicity Verification\n========================================\n[INFO] Applying reset...\n[INFO] Reset released at time 190\n[INFO] y at cycle 15: 0\n[INFO] y at cycle 16: 1\n[PASS] Periodicity: cycle 16 y=1 matches cycle 0 y=1\n\nExtended Periodicity Check (cycles 16-30):\n----------------------------------------\n[PASS] Cycle 16: y=1 matches expected y[1]=1\n[PASS] Cycle 17: y=1 matches expected y[2]=1\n[PASS] Cycle 18: y=1 matches expected y[3]=1\n[PASS] Cycle 19: y=0 matches expected y[4]=0\n[PASS] Cycle 20: y=1 matches expected y[5]=1\n[PASS] Cycle 21: y=0 matches expected y[6]=0\n[PASS] Cycle 22: y=1 matches expected y[7]=1\n[PASS] Cycle 23: y=1 matches expected y[8]=1\n[PASS] Cycle 24: y=0 matches expected y[9]=0\n[PASS] Cycle 25: y=0 matches expected y[10]=0\n[PASS] Cycle 26: y=1 matches expected y[11]=1\n[PASS] Cycle 27: y=0 matches expected y[12]=0\n[PASS] Cycle 28: y=0 matches expected y[13]=0\n[PASS] Cycle 29: y=0 matches expected y[14]=0\n----------------------------------------\n\n========================================\nTEST SUMMARY\n========================================\n  Total Tests:  31\n  Passed:       31\n  Failed:",
+  "vcd_path": "/app/backend/icwork/lfsr/03_verification/sim/tb_lfsr_4bit.vcd",
+  "protocol_unknown": true,
+  "protocol_reason": "Found PASS/FAIL markers but no recognized testcase ids. Examples: Periodicity. Expected identifiers like case_<id> or TC-<id>."
+}
