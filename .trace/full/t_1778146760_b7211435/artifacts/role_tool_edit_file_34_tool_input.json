@@ -1,0 +1,5 @@
+{
+  "file_name": "/workspace/icwork/uart_tx/.coderust/arch/uart_tx_arch.md",
+  "old_string": "[PLACEHOLDER:module_hierarchy]",
+  "new_string": "**Decision**: Two-level hierarchy — FIFO as independent sub-module, FSM embedded in top-level.\n\n| Module | Role | Instantiation |\n|--------|------|---------------|\n| Uart_tx | Top-level wrapper; contains TX_Control_FSM, baud counter, shift logic, LCR latch | — |\n| Uart_tx_fifo | Synchronous FIFO, 16-deep × 8-wide | Instantiated inside Uart_tx |\n\n**Rationale**:\n- FIFO has well-defined push/pop interface and is a reusable building block (P-02 pattern). Separating it enables independent verification and potential reuse.\n- TX_Control_FSM is tightly coupled with baud counter, bit counter, and TXD output. Extracting it as a separate module would create excessive wiring (state → mux select, counter reload, etc.) with no reuse benefit. Embedding FSM in top-level keeps the data path compact and avoids unnecessary port explosion.\n- Estimated gate count < 2000 GE, well below the 5000 GE decomposition threshold."
+}

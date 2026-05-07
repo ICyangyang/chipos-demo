@@ -1,0 +1,240 @@
+根据 Spec 内容，我已完成全面分析。以下是结构化输出：
+
+---
+
+# UART TX 模块规格
+
+**Version**: v1.0
+**Date**: 2026-05-07
+**Author**: ChipOS RTL Team
+
+---
+
+## 模块层次结构
+
+```
+Uart_tx (顶层模块)
+├── Uart_tx_fifo (FIFO 缓冲子模块)
+└── TX_Control_FSM (发送控制状态机子模块)
+```
+
+---
+
+## Module: Uart_tx (顶层)
+
+### Ports
+| Name | Direction | Width | Description |
+|------|-----------|-------|-------------|
+| PCLK | input | 1 | 系统主时钟，所有时序逻辑在上升沿触发 |
+| PRESETn | input | 1 | 低电平有效异步复位 |
+| PWDATA | input | 8 | 并行输入数据，在 tx_fifo_push 为高时写入 FIFO |
+| tx_fifo_push | input | 1 | FIFO 写入使能，高电平有效，持续一个时钟周期 |
+| LCR | input | 8 | 线控制寄存器，配置数据帧格式 |
+| enable | input | 1 | 发送过程使能，高电平有效；低电平时 bit_counter 停止计数，发送暂停 |
+| tx_fifo_empty | output | 1 | FIFO 空标志，高电平表示 FIFO 无数据 |
+| tx_fifo_full | output | 1 | FIFO 满标志，高电平表示 FIFO 已满 |
+| tx_fifo_count | output | 5 | FIFO 数据计数，实时指示存储字节数 (0-16) |
+| busy | output | 1 | 发送忙标志，高电平表示正在发送数据帧 (START 到最后一个 STOP 位) |
+| TXD | output | 1 | 串行数据输出线，空闲时为高电平 |
+
+### Functional Points
+| FP-ID | Description | Trigger Condition | Expected Behavior |
+|-------|-------------|-------------------|-------------------|
+| FP-001 | FIFO 数据写入 | tx_fifo_push=1 且 tx_fifo_full=0 | PWDATA 在下一个 PCLK 上升沿被写入 FIFO，tx_fifo_count 递增 1 |
+| FP-002 | FIFO 满时写入保护 | tx_fifo_push=1 且 tx_fifo_full=1 | 写入操作被忽略，FIFO 内容不变，tx_fifo_count 保持 16 |
+| FP-003 | FIFO 数据读出 | pop=1 且 tx_fifo_empty=0 | 读指针递增，tx_fifo_count 递减 1，rd_data 输出当前读指针指向的数据 |
+| FP-004 | FIFO 空时读出保护 | pop=1 且 tx_fifo_empty=1 | 读操作被忽略，FIFO 状态不变 |
+| FP-005 | FIFO 并发读写 | tx_fifo_push=1 且 pop=1 且 tx_fifo_empty=0 且 tx_fifo_full=0 | 写入与读出同时完成，tx_fifo_count 保持不变 |
+| FP-006 | FIFO 空标志生成 | tx_fifo_count=0 | tx_fifo_empty 在 1 个 PCLK 周期内置为 1 |
+| FP-007 | FIFO 满标志生成 | tx_fifo_count=16 | tx_fifo_full 在 1 个 PCLK 周期内置为 1 |
+| FP-008 | FIFO 计数器跟踪 | 每次 push/pop 操作 | tx_fifo_count 实时反映 FIFO 中有效数据字节数 |
+| FP-009 | 空闲状态检测与启动 | tx_state=IDLE 且 tx_fifo_empty=0 且 enable=1 | 状态机在 1 个 PCLK 周期内转换到 START 状态，busy 置为 1 |
+| FP-010 | 起始位发送 | tx_state=START | TXD 拉低持续 16 个 PCLK 周期，随后状态转换到 BIT0 |
+| FP-011 | 数据位发送 (BIT0-BIT7) | tx_state=BITn (n=0..data_width-1) | TXD 输出 tx_buffer[n] 的值，每位持续 16 个 PCLK 周期，bit_counter 从 0 计数到 15 |
+| FP-012 | 数据位宽截断 | LCR[1:0] 配置为非 2'b11 值 | 仅发送 LCR[1:0] 对应位数 (5/6/7) 的数据位，跳过未使用的 BIT 状态 |
+| FP-013 | 偶校验位生成 | LCR[3]=1 且 LCR[5:4]=2'b00 | PARITY 状态下 TXD 输出值使所有数据位加校验位的 1 的总数为偶数 |
+| FP-014 | 奇校验位生成 | LCR[3]=1 且 LCR[5:4]=2'b01 | PARITY 状态下 TXD 输出值使所有数据位加校验位的 1 的总数为奇数 |
+| FP-015 | 固定高电平校验位 | LCR[3]=1 且 LCR[5:4]=2'b10 | PARITY 状态下 TXD 输出 1，持续 16 个 PCLK 周期 |
+| FP-016 | 固定低电平校验位 | LCR[3]=1 且 LCR[5:4]=2'b11 | PARITY 状态下 TXD 输出 0，持续 16 个 PCLK 周期 |
+| FP-017 | 校验位跳过 | LCR[3]=0 | 状态机从最后一个数据位状态直接跳转到 STOP1，不进入 PARITY 状态 |
+| FP-018 | 单停止位发送 | LCR[2]=0 | STOP1 状态下 TXD 输出 1 持续 16 个 PCLK 周期，随后回到 IDLE |
+| FP-019 | 双停止位发送 | LCR[2]=1 且 data_width>=6 | STOP1 状态下 TXD=1 持续 16 个 PCLK 周期，STOP2 状态下 TXD=1 再持续 16 个 PCLK 周期，随后回到 IDLE |
+| FP-020 | 1.5 停止位发送 | LCR[2]=1 且 data_width=5 | STOP1 状态下 TXD=1 持续 8 个 PCLK 周期 (1.5 个位周期 = 24 PCLK，已发 16)，随后回到 IDLE |
+| FP-021 | 位计数器定时 | enable=1 且 tx_state!=IDLE | bit_counter 每 PCLK 周期递增 1，从 0 计数到 15 后归零并触发状态转换 |
+| FP-022 | enable 暂停发送 | enable=0 | bit_counter 停止计数，TXD 保持当前值，状态机保持在当前状态 |
+| FP-023 | enable 恢复发送 | enable 从 0 变为 1 | bit_counter 从暂停值继续计数，发送过程从断点继续 |
+| FP-024 | busy 标志管理 | tx_state 从 IDLE 转出 | busy 在进入 START 时置 1，在回到 IDLE 时置 0，均在 1 个 PCLK 周期内生效 |
+| FP-025 | TXD 空闲电平 | tx_state=IDLE | TXD 保持高电平 (1) |
+| FP-026 | 异步复位 | PRESETn=0 | 所有寄存器 (tx_state, bit_counter, tx_buffer, FIFO 指针/计数) 在 1 个 PCLK 周期内复位到初始值，TXD=1，busy=0 |
+| FP-027 | LCR 动态配置 | LCR 在 tx_state!=IDLE 时变化 | 行为未定义 (见歧义 A1) |
+| FP-028 | tx_buffer 加载 | tx_state 从 IDLE 转换到 START | FIFO pop 操作执行，pop 出的数据锁存到 tx_buffer |
+
+### FP-Pin Mapping
+| FP-ID | Stimulus Pins | Drive Value / Sequence | Observe Pins | Expected Value / Condition | Latency (cycles) |
+|-------|---------------|----------------------|--------------|---------------------------|-------------------|
+| FP-001 | tx_fifo_push, PWDATA | tx_fifo_push=1, PWDATA=0x55 | tx_fifo_full, tx_fifo_count | tx_fifo_count 递增 1 | 1 |
+| FP-002 | tx_fifo_push, PWDATA | tx_fifo_push=1 (FIFO 已满) | tx_fifo_count, tx_fifo_full | tx_fifo_count=16 不变 | 1 |
+| FP-003 | (内部 pop) | pop=1 (FIFO 非空) | tx_fifo_count, tx_fifo_empty | tx_fifo_count 递减 1 | 1 |
+| FP-004 | (内部 pop) | pop=1 (FIFO 为空) | tx_fifo_count, tx_fifo_empty | tx_fifo_count=0 不变 | 1 |
+| FP-005 | tx_fifo_push, (内部 pop) | push=1, pop=1 同时 | tx_fifo_count | tx_fifo_count 不变 | 1 |
+| FP-006 | (无外部激励) | FIFO 被读空 | tx_fifo_empty | tx_fifo_empty=1 | 1 |
+| FP-007 | (无外部激励) | FIFO 被写满 | tx_fifo_full | tx_fifo_full=1 | 1 |
+| FP-008 | tx_fifo_push, (内部 pop) | push/pop 操作 | tx_fifo_count | tx_fifo_count 反映实际有效数据数 | 1 |
+| FP-009 | enable, tx_fifo_empty | enable=1, FIFO 非空 | busy, TXD | busy=1, 进入 START 状态 | 1 |
+| FP-010 | (内部状态) | tx_state=START | TXD | TXD=0 持续 16 周期 | 16 |
+| FP-011 | (内部状态) | tx_state=BITn | TXD | TXD=tx_buffer[n] 持续 16 周期 | 16 |
+| FP-012 | LCR | LCR[1:0]=2'b00 (5-bit) | TXD | 仅发送 5 个数据位后跳转 | 5*16 |
+| FP-013 | LCR | LCR[3]=1, LCR[5:4]=2'b00 | TXD | TXD 输出偶校验值 | 16 |
+| FP-014 | LCR | LCR[3]=1, LCR[5:4]=2'b01 | TXD | TXD 输出奇校验值 | 16 |
+| FP-015 | LCR | LCR[3]=1, LCR[5:4]=2'b10 | TXD | TXD=1 | 16 |
+| FP-016 | LCR | LCR[3]=1, LCR[5:4]=2'b11 | TXD | TXD=0 | 16 |
+| FP-017 | LCR | LCR[3]=0 | TXD, (内部状态) | 跳过 PARITY 状态 | 0 |
+| FP-018 | LCR | LCR[2]=0 | TXD | TXD=1 持续 16 周期 | 16 |
+| FP-019 | LCR | LCR[2]=1, data_width>=6 | TXD | TXD=1 持续 32 周期 (两个 STOP) | 32 |
+| FP-020 | LCR | LCR[2]=1, data_width=5 | TXD | TXD=1 持续 8 周期 (1.5 STOP) | 8 |
+| FP-021 | enable | enable=1, tx_state!=IDLE | (内部 bit_counter) | bit_counter 每 cycle 递增 1 | 1 |
+| FP-022 | enable | enable=0 | TXD, (内部 bit_counter) | TXD 保持, bit_counter 冻结 | 0 |
+| FP-023 | enable | enable: 0→1 | TXD, (内部 bit_counter) | bit_counter 从暂停值继续 | 1 |
+| FP-024 | (内部状态) | tx_state: IDLE→START | busy | busy=1; 回到 IDLE 时 busy=0 | 1 |
+| FP-025 | (内部状态) | tx_state=IDLE | TXD | TXD=1 | 0 |
+| FP-026 | PRESETn | PRESETn=0 持续 2+ 周期后释放 | TXD, busy, tx_fifo_empty, tx_fifo_count | TXD=1, busy=0, FIFO 清空 | 1 |
+| FP-027 | LCR | LCR 在发送中变化 | TXD, busy | 行为未定义 (歧义 A1) | N/A |
+| FP-028 | (内部状态) | IDLE→START 转换 | (内部 tx_buffer) | tx_buffer 锁存 FIFO pop 数据 | 1 |
+
+---
+
+## Module: Uart_tx_fifo (子模块)
+
+### Ports
+| Name | Direction | Width | Description |
+|------|-----------|-------|-------------|
+| clk | input | 1 | 时钟，来自顶层 PCLK |
+| rst_n | input | 1 | 异步复位，来自顶层 PRESETn |
+| push | input | 1 | 写入使能，来自顶层 tx_fifo_push |
+| pop | input | 1 | 读出使能，来自 TX_Control_FSM 的 pop 请求 |
+| wr_data | input | 8 | 写入数据，来自顶层 PWDATA |
+| rd_data | output | 8 | 读出数据 (Read-Through)，直接从 data_fifo[op_count] 输出 |
+| fifo_empty | output | 1 | 空标志，~(\|count) |
+| fifo_full | output | 1 | 满标志，count==16 |
+| count | output | 5 | 数据计数器，范围 0-16 |
+
+### Functional Points
+| FP-ID | Description | Trigger Condition | Expected Behavior |
+|-------|-------------|-------------------|-------------------|
+| FP-F01 | FIFO 写入 | push=1 且 fifo_full=0 | wr_data 写入 data_fifo[ip_count]，ip_count 递增 1，count 递增 1 |
+| FP-F02 | FIFO 读出 | pop=1 且 fifo_empty=0 | rd_data 输出 data_fifo[op_count]，op_count 递增 1，count 递减 1 |
+| FP-F03 | 并发读写 | push=1 且 pop=1 且非空非满 | 写入与读出同时完成，count 不变 |
+| FP-F04 | 满时写入忽略 | push=1 且 fifo_full=1 | 操作忽略，FIFO 内容不变 |
+| FP-F05 | 空时读出忽略 | pop=1 且 fifo_empty=0 | 操作忽略，FIFO 内容不变 |
+| FP-F06 | 空标志计算 | count=0 | fifo_empty=1 |
+| FP-F07 | 满标志计算 | count=16 | fifo_full=1 |
+| FP-F08 | 异步复位 | rst_n=0 | ip_count=0, op_count=0, count=0, fifo_empty=1, fifo_full=0 |
+
+### FP-Pin Mapping
+| FP-ID | Stimulus Pins | Drive Value / Sequence | Observe Pins | Expected Value / Condition | Latency (cycles) |
+|-------|---------------|----------------------|--------------|---------------------------|-------------------|
+| FP-F01 | push, wr_data | push=1, wr_data=0xAA | count, fifo_full | count 递增 1 | 1 |
+| FP-F02 | pop | pop=1 (非空) | rd_data, count, fifo_empty | rd_data 有效, count 递减 1 | 1 |
+| FP-F03 | push, pop | push=1, pop=1 (非空非满) | count | count 不变 | 1 |
+| FP-F04 | push | push=1 (已满) | count, fifo_full | count=16 不变 | 1 |
+| FP-F05 | pop | pop=1 (已空) | count, fifo_empty | count=0 不变 | 1 |
+| FP-F06 | (内部) | count=0 | fifo_empty | fifo_empty=1 | 0 (组合逻辑) |
+| FP-F07 | (内部) | count=16 | fifo_full | fifo_full=1 | 0 (组合逻辑) |
+| FP-F08 | rst_n | rst_n=0 | ip_count, op_count, count, fifo_empty | 全部归零, fifo_empty=1 | 1 |
+
+---
+
+## Module: TX_Control_FSM (子模块)
+
+### Ports
+| Name | Direction | Width | Description |
+|------|-----------|-------|-------------|
+| clk | input | 1 | 时钟，来自顶层 PCLK |
+| rst_n | input | 1 | 异步复位，来自顶层 PRESETn |
+| enable | input | 1 | 发送使能，来自顶层 enable |
+| lcr | input | 8 | 线控制寄存器，来自顶层 LCR |
+| fifo_empty | input | 1 | FIFO 空标志，来自 Uart_tx_fifo |
+| fifo_data | input | 8 | FIFO 读出数据，来自 Uart_tx_fifo.rd_data |
+| pop_req | output | 1 | FIFO 读出请求，连接到 Uart_tx_fifo.pop |
+| busy | output | 1 | 发送忙标志 |
+| txd | output | 1 | 串行数据输出 |
+
+### Functional Points
+| FP-ID | Description | Trigger Condition | Expected Behavior |
+|-------|-------------|-------------------|-------------------|
+| FP-S01 | 空闲检测与启动 | tx_state=IDLE 且 fifo_empty=0 且 enable=1 | pop_req=1 持续 1 周期，tx_buffer 锁存 fifo_data，tx_state 转到 START，busy=1 |
+| FP-S02 | 起始位发送 | tx_state=START 且 bit_counter=15 | txd=0 持续 16 周期，bit_counter 归零后 tx_state 转到 BIT0 |
+| FP-S03 | 数据位逐位发送 | tx_state=BITn 且 bit_counter=15 | txd=tx_buffer[n]，16 周期后转到 BIT(n+1) 或 PARITY/STOP1 |
+| FP-S04 | 校验位发送 | tx_state=PARITY 且 bit_counter=15 | txd 输出校验值 (由 lcr[5:4] 决定)，16 周期后转到 STOP1 |
+| FP-S05 | 停止位发送 | tx_state=STOP1/STOP2 且 bit_counter=15 | txd=1，16 周期后转到下一状态或 IDLE |
+| FP-S06 | 1.5 停止位处理 | tx_state=STOP1 且 LCR[2]=1 且 data_width=5 | txd=1 持续 8 周期后回到 IDLE |
+| FP-S07 | 位计数器运行 | enable=1 且 tx_state!=IDLE | bit_counter 每 cycle 递增 1，到 15 后归零触发状态转换 |
+| FP-S08 | 位计数器暂停 | enable=0 | bit_counter 冻结，tx_state 不变，txd 保持 |
+| FP-S09 | 帧完成回到空闲 | 最后一个 STOP 位发送完成 | tx_state=IDLE, busy=0, txd=1 |
+| FP-S10 | 异步复位 | rst_n=0 | tx_state=IDLE, bit_counter=0, busy=0, txd=1 |
+
+### FP-Pin Mapping
+| FP-ID | Stimulus Pins | Drive Value / Sequence | Observe Pins | Expected Value / Condition | Latency (cycles) |
+|-------|---------------|----------------------|--------------|---------------------------|-------------------|
+| FP-S01 | enable, fifo_empty | enable=1, fifo_empty=0 | pop_req, busy, txd | pop_req=1, busy=1, txd=0 (下一周期进入 START) | 1 |
+| FP-S02 | (内部状态) | tx_state=START | txd | txd=0 持续 16 周期 | 16 |
+| FP-S03 | (内部状态) | tx_state=BITn | txd | txd=tx_buffer[n] 持续 16 周期 | 16 |
+| FP-S04 | lcr | lcr[3]=1 | txd | txd=校验值 持续 16 周期 | 16 |
+| FP-S05 | (内部状态) | tx_state=STOP1/STOP2 | txd | txd=1 持续 16 周期 | 16 |
+| FP-S06 | lcr | lcr[2]=1, lcr[1:0]=2'b00 | txd | txd=1 持续 8 周期 | 8 |
+| FP-S07 | enable | enable=1 | (内部 bit_counter) | bit_counter 每 cycle+1 | 1 |
+| FP-S08 | enable | enable=0 | txd, (内部 bit_counter) | txd 保持, bit_counter 冻结 | 0 |
+| FP-S09 | (内部状态) | STOP 完成 | busy, txd | busy=0, txd=1 | 1 |
+| FP-S10 | rst_n | rst_n=0 | busy, txd, (内部 tx_state) | busy=0, txd=1, tx_state=IDLE | 1 |
+
+---
+
+## Consistency Check
+
+- [x] **子模块 FP 覆盖顶层 FP**: PASS — Uart_tx_fifo 的 FP-F01~FP-F08 覆盖顶层 FP-001~FP-008；TX_Control_FSM 的 FP-S01~FP-S10 覆盖顶层 FP-009~FP-028
+- [x] **FIFO 深度与计数器位宽一致**: PASS — 深度 16，count 为 5-bit (0-16)，可表示 0~16 共 17 个值
+- [x] **bit_counter 位宽与波特率分频一致**: PASS — bit_counter 为 4-bit (0-15)，每 bit 16 个 PCLK 周期
+- [x] **LCR 数据位宽编码完整**: PASS — LCR[1:0] 覆盖 5/6/7/8 四种数据位宽
+- [x] **LCR 校验类型编码完整**: PASS — LCR[5:4] 覆盖偶/奇/固定1/固定0 四种校验
+- [x] **端口方向与子模块连接一致**: PASS — 顶层输入连接子模块输入，子模块输出连接顶层输出
+- [ ] **LCR[6] 和 LCR[7] 定义缺失**: FAIL — LCR 为 8-bit，但仅定义了 [5:0]，[7:6] 未定义
+- [ ] **1.5 停止位与 2 停止位的区分条件不完整**: FAIL — LCR[2]=1 时 Spec 仅说 "1.5 or 2 stop bits"，未给出明确区分条件 (标准 UART 中 1.5 stop 仅用于 5-bit 数据，但 Spec 未显式声明)
+- [ ] **LCR 动态切换行为未定义**: FAIL — FP-027 行为未定义，Spec 仅列为待验证点但未给出预期行为
+- [ ] **enable 暂停粒度未定义**: FAIL — Spec 未说明 enable=0 时是立即暂停还是等待当前 bit 发送完成后再暂停
+- [ ] **sub-8-bit 数据的 tx_buffer 位映射未定义**: FAIL — 当数据位宽为 5/6/7 时，tx_buffer[7:0] 中哪些位对应有效数据位未明确
+
+---
+
+## Ambiguities
+
+| ID | Item | Question | Suggested Resolution |
+|----|------|----------|---------------------|
+| A1 | LCR[7:6] 未定义 | LCR 为 8-bit 宽，但 Spec 仅定义了 [5:0]。LCR[7:6] 的功能是什么？是否应保留为 0 或作为其他配置？ | 建议明确 LCR[7:6] 为保留位 (Reserved)，读返回 0，写忽略；或定义其功能 (如 Break Control / DLAB 等，参考 16550 标准) |
+| A2 | 1.5 vs 2 停止位区分 | LCR[2]=1 时，Spec 写 "1.5 or 2 stop bits"，但未给出区分条件。何时发 1.5 停止位，何时发 2 停止位？ | 建议遵循标准 UART 规范：当数据位宽=5 时为 1.5 停止位，数据位宽>=6 时为 2 停止位。需在 Spec 中显式声明 |
+| A3 | LCR 动态切换 | 当 tx_state!=IDLE 时修改 LCR，发送行为如何？是使用帧开始时的 LCR 快照还是实时采样？ | 建议在帧开始 (IDLE→START) 时锁存 LCR 到内部寄存器 lcr_latch，整个帧期间使用 lcr_latch，忽略 LCR 端口变化 |
+| A4 | enable 暂停粒度 | enable=0 时，bit_counter 立即冻结还是等当前 bit 发完？如果立即冻结，恢复后从断点继续是否会导致位内毛刺？ | 建议立即冻结 bit_counter (与 Spec 4.2 节描述一致)，恢复后从断点继续。需确认 TXD 在暂停期间是否保持当前电平 |
+| A5 | sub-8-bit 数据位映射 | 当 LCR[1:0]=2'b00 (5-bit) 时，tx_buffer[7:0] 中哪 5 位是有效数据？是 tx_buffer[4:0] 还是其他映射？ | 建议有效数据始终从 tx_buffer 的 LSB 开始对齐，即 5-bit 模式使用 tx_buffer[4:0]，tx_buffer[7:5] 忽略 |
+| A6 | FIFO 满时 push 的错误指示 | 当 tx_fifo_full=1 且 tx_fifo_push=1 时，除了忽略写入外，是否需要产生错误指示信号或中断？ | 建议增加 tx_fifo_overflow 输出信号 (pulse)，或在 Spec 中明确声明 "满时写入静默忽略，无错误指示" |
+| A7 | FIFO pop 时序 | FIFO 的 pop 请求与 rd_data 的时序关系：是组合逻辑 Read-Through (rd_data 在 pop 前已稳定) 还是寄存器输出？ | Spec 4.1 节写 "data_out = data_fifo[op_count]" 为组合逻辑，建议明确声明为 Read-Through 模式，rd_data 在 pop 当周期即可采样 |
+
+---
+
+## 待验证点列表
+
+| VP-ID | Description | Related FP-ID | Priority | Category |
+|-------|-------------|---------------|----------|----------|
+| VP-01 | FIFO 并发读写正确性：push 和 pop 同时发生时 count 和指针更新 | FP-005, FP-F03 | High | FIFO |
+| VP-02 | FIFO 满时继续 push：数据不丢失、不覆盖、count 不变 | FP-002, FP-F04 | High | FIFO |
+| VP-03 | FIFO 空时 pop：状态不变、rd_data 不产生无效数据 | FP-004, FP-F05 | High | FIFO |
+| VP-04 | LCR 动态切换：发送中途修改 LCR 不影响当前帧 | FP-027, A3 | High | FSM |
+| VP-05 | enable 暂停与恢复：bit_counter 冻结/继续，TXD 无毛刺 | FP-022, FP-023, FP-S08 | High | FSM |
+| VP-06 | 异步复位：所有寄存器归零，TXD=1，busy=0 | FP-026, FP-F08, FP-S10 | High | Reset |
+| VP-07 | 5-bit 数据 + 1.5 停止位：STOP1 仅持续 8 个 PCLK 周期 | FP-020, FP-S06, A2 | Medium | Protocol |
+| VP-08 | 8-N-1 完整帧：START + 8 data + 1 stop，TXD 时序正确 | FP-010~FP-012, FP-017, FP-018 | High | Protocol |
+| VP-09 | 奇偶校验位正确性：偶校验/奇校验/固定1/固定0 | FP-013~FP-016 | High | Protocol |
+| VP-10 | sub-8-bit 数据位映射：5/6/7-bit 模式下有效数据位正确 | FP-012, A5 | Medium | Protocol |
+| VP-11 | 连续帧发送：FIFO 中有多字节时自动连续发送 | FP-009, FP-S01 | Medium | Integration |
+| VP-12 | busy 信号时序：与帧起止严格对齐 | FP-024, FP-S09 | Medium | Status |
+| VP-13 | tx_fifo_count 实时准确性：各种 push/pop 组合下 count 值正确 | FP-008, FP-F06, FP-F07 | Medium | FIFO |
+| VP-14 | LCR[7:6] 保留位行为：写入非零值不影响功能 | A1 | Low | Config |
+| VP-15 | enable=0 期间 FIFO 仍可 push | FP-001, FP-022 | Medium | Integration |

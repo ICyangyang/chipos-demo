@@ -1,0 +1,533 @@
+{
+  "pattern": "tx_buffer",
+  "searched_files": 1,
+  "match_count": 15,
+  "truncated": false,
+  "matches": [
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 47,
+      "text": "    logic [7:0]  tx_buffer;     // Current byte being transmitted",
+      "context": [
+        {
+          "line": 44,
+          "text": "    logic [3:0]  tx_state;      // FSM state register"
+        },
+        {
+          "line": 45,
+          "text": "    logic [3:0]  bit_cnt;       // Bit period counter (0-15)"
+        },
+        {
+          "line": 46,
+          "text": "    logic [2:0]  bit_index;     // Data bit index (0-7)"
+        },
+        {
+          "line": 47,
+          "text": "    logic [7:0]  tx_buffer;     // Current byte being transmitted"
+        },
+        {
+          "line": 48,
+          "text": "    logic [7:0]  lcr_latch;     // LCR latched at frame start"
+        },
+        {
+          "line": 49,
+          "text": "    logic        parity_bit;    // Pre-computed parity bit"
+        },
+        {
+          "line": 50,
+          "text": "    logic        tx_fifo_pop;   // FIFO read request (1-cycle pulse)"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 57,
+      "text": "    logic        parity_xor;    // XOR reduction of masked tx_buffer",
+      "context": [
+        {
+          "line": 54,
+          "text": "    logic [4:0]  fifo_count;   // FIFO data count (from sub-module)"
+        },
+        {
+          "line": 55,
+          "text": "    logic [7:0]  data_mask;     // Mask for sub-8-bit data"
+        },
+        {
+          "line": 56,
+          "text": "    logic        parity_en;     // Parity enable (from lcr_latch[3])"
+        },
+        {
+          "line": 57,
+          "text": "    logic        parity_xor;    // XOR reduction of masked tx_buffer"
+        },
+        {
+          "line": 58,
+          "text": "    logic [1:0]  data_bits_enc; // Data bits encoding (lcr_latch[1:0])"
+        },
+        {
+          "line": 59,
+          "text": "    logic        stop_bits_en;  // Stop bits enable (lcr_latch[2])"
+        },
+        {
+          "line": 60,
+          "text": "    logic [1:0]  parity_type;   // Parity type (lcr_latch[5:4])"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 101,
+      "text": "    // Parity XOR: reduction XOR of masked tx_buffer",
+      "context": [
+        {
+          "line": 98,
+          "text": "        endcase"
+        },
+        {
+          "line": 99,
+          "text": "    end"
+        },
+        {
+          "line": 100,
+          "text": ""
+        },
+        {
+          "line": 101,
+          "text": "    // Parity XOR: reduction XOR of masked tx_buffer"
+        },
+        {
+          "line": 102,
+          "text": "    // Upper zero bits don't affect XOR result"
+        },
+        {
+          "line": 103,
+          "text": "    assign parity_xor = ^(tx_buffer & data_mask);"
+        },
+        {
+          "line": 104,
+          "text": ""
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 103,
+      "text": "    assign parity_xor = ^(tx_buffer & data_mask);",
+      "context": [
+        {
+          "line": 100,
+          "text": ""
+        },
+        {
+          "line": 101,
+          "text": "    // Parity XOR: reduction XOR of masked tx_buffer"
+        },
+        {
+          "line": 102,
+          "text": "    // Upper zero bits don't affect XOR result"
+        },
+        {
+          "line": 103,
+          "text": "    assign parity_xor = ^(tx_buffer & data_mask);"
+        },
+        {
+          "line": 104,
+          "text": ""
+        },
+        {
+          "line": 105,
+          "text": "    //========================================================================"
+        },
+        {
+          "line": 106,
+          "text": "    // Busy Flag"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 260,
+      "text": "            tx_buffer  <= 8'b0;",
+      "context": [
+        {
+          "line": 257,
+          "text": "            tx_state   <= TX_IDLE;"
+        },
+        {
+          "line": 258,
+          "text": "            bit_cnt    <= 4'b0;"
+        },
+        {
+          "line": 259,
+          "text": "            bit_index  <= 3'b0;"
+        },
+        {
+          "line": 260,
+          "text": "            tx_buffer  <= 8'b0;"
+        },
+        {
+          "line": 261,
+          "text": "            lcr_latch  <= 8'b0;"
+        },
+        {
+          "line": 262,
+          "text": "            parity_bit <= 1'b0;"
+        },
+        {
+          "line": 263,
+          "text": "            TXD        <= 1'b1;  // Idle line level"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 273,
+      "text": "                        // Frame start: latch LCR, pop FIFO, load tx_buffer",
+      "context": [
+        {
+          "line": 270,
+          "text": "                TX_IDLE: begin"
+        },
+        {
+          "line": 271,
+          "text": "                    bit_cnt <= 4'b0;"
+        },
+        {
+          "line": 272,
+          "text": "                    if (enable && !fifo_empty) begin"
+        },
+        {
+          "line": 273,
+          "text": "                        // Frame start: latch LCR, pop FIFO, load tx_buffer"
+        },
+        {
+          "line": 274,
+          "text": "                        lcr_latch  <= LCR;"
+        },
+        {
+          "line": 275,
+          "text": "                        tx_fifo_pop <= 1'b1;"
+        },
+        {
+          "line": 276,
+          "text": "                        tx_buffer  <= fifo_rd_data & data_mask; // LSB-aligned, upper bits zeroed"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 276,
+      "text": "                        tx_buffer  <= fifo_rd_data & data_mask; // LSB-aligned, upper bits zeroed",
+      "context": [
+        {
+          "line": 273,
+          "text": "                        // Frame start: latch LCR, pop FIFO, load tx_buffer"
+        },
+        {
+          "line": 274,
+          "text": "                        lcr_latch  <= LCR;"
+        },
+        {
+          "line": 275,
+          "text": "                        tx_fifo_pop <= 1'b1;"
+        },
+        {
+          "line": 276,
+          "text": "                        tx_buffer  <= fifo_rd_data & data_mask; // LSB-aligned, upper bits zeroed"
+        },
+        {
+          "line": 277,
+          "text": "                        // Pre-compute parity bit"
+        },
+        {
+          "line": 278,
+          "text": "                        case (parity_type)"
+        },
+        {
+          "line": 279,
+          "text": "                            2'b00: parity_bit <= ^(fifo_rd_data & data_mask); // Even parity"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 372,
+      "text": "                TX_BIT0:   TXD <= tx_buffer[0];",
+      "context": [
+        {
+          "line": 369,
+          "text": "            case (next_state)"
+        },
+        {
+          "line": 370,
+          "text": "                TX_IDLE:   TXD <= 1'b1;"
+        },
+        {
+          "line": 371,
+          "text": "                TX_START:  TXD <= 1'b0;"
+        },
+        {
+          "line": 372,
+          "text": "                TX_BIT0:   TXD <= tx_buffer[0];"
+        },
+        {
+          "line": 373,
+          "text": "                TX_BIT1:   TXD <= tx_buffer[1];"
+        },
+        {
+          "line": 374,
+          "text": "                TX_BIT2:   TXD <= tx_buffer[2];"
+        },
+        {
+          "line": 375,
+          "text": "                TX_BIT3:   TXD <= tx_buffer[3];"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 373,
+      "text": "                TX_BIT1:   TXD <= tx_buffer[1];",
+      "context": [
+        {
+          "line": 370,
+          "text": "                TX_IDLE:   TXD <= 1'b1;"
+        },
+        {
+          "line": 371,
+          "text": "                TX_START:  TXD <= 1'b0;"
+        },
+        {
+          "line": 372,
+          "text": "                TX_BIT0:   TXD <= tx_buffer[0];"
+        },
+        {
+          "line": 373,
+          "text": "                TX_BIT1:   TXD <= tx_buffer[1];"
+        },
+        {
+          "line": 374,
+          "text": "                TX_BIT2:   TXD <= tx_buffer[2];"
+        },
+        {
+          "line": 375,
+          "text": "                TX_BIT3:   TXD <= tx_buffer[3];"
+        },
+        {
+          "line": 376,
+          "text": "                TX_BIT4:   TXD <= tx_buffer[4];"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 374,
+      "text": "                TX_BIT2:   TXD <= tx_buffer[2];",
+      "context": [
+        {
+          "line": 371,
+          "text": "                TX_START:  TXD <= 1'b0;"
+        },
+        {
+          "line": 372,
+          "text": "                TX_BIT0:   TXD <= tx_buffer[0];"
+        },
+        {
+          "line": 373,
+          "text": "                TX_BIT1:   TXD <= tx_buffer[1];"
+        },
+        {
+          "line": 374,
+          "text": "                TX_BIT2:   TXD <= tx_buffer[2];"
+        },
+        {
+          "line": 375,
+          "text": "                TX_BIT3:   TXD <= tx_buffer[3];"
+        },
+        {
+          "line": 376,
+          "text": "                TX_BIT4:   TXD <= tx_buffer[4];"
+        },
+        {
+          "line": 377,
+          "text": "                TX_BIT5:   TXD <= tx_buffer[5];"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 375,
+      "text": "                TX_BIT3:   TXD <= tx_buffer[3];",
+      "context": [
+        {
+          "line": 372,
+          "text": "                TX_BIT0:   TXD <= tx_buffer[0];"
+        },
+        {
+          "line": 373,
+          "text": "                TX_BIT1:   TXD <= tx_buffer[1];"
+        },
+        {
+          "line": 374,
+          "text": "                TX_BIT2:   TXD <= tx_buffer[2];"
+        },
+        {
+          "line": 375,
+          "text": "                TX_BIT3:   TXD <= tx_buffer[3];"
+        },
+        {
+          "line": 376,
+          "text": "                TX_BIT4:   TXD <= tx_buffer[4];"
+        },
+        {
+          "line": 377,
+          "text": "                TX_BIT5:   TXD <= tx_buffer[5];"
+        },
+        {
+          "line": 378,
+          "text": "                TX_BIT6:   TXD <= tx_buffer[6];"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 376,
+      "text": "                TX_BIT4:   TXD <= tx_buffer[4];",
+      "context": [
+        {
+          "line": 373,
+          "text": "                TX_BIT1:   TXD <= tx_buffer[1];"
+        },
+        {
+          "line": 374,
+          "text": "                TX_BIT2:   TXD <= tx_buffer[2];"
+        },
+        {
+          "line": 375,
+          "text": "                TX_BIT3:   TXD <= tx_buffer[3];"
+        },
+        {
+          "line": 376,
+          "text": "                TX_BIT4:   TXD <= tx_buffer[4];"
+        },
+        {
+          "line": 377,
+          "text": "                TX_BIT5:   TXD <= tx_buffer[5];"
+        },
+        {
+          "line": 378,
+          "text": "                TX_BIT6:   TXD <= tx_buffer[6];"
+        },
+        {
+          "line": 379,
+          "text": "                TX_BIT7:   TXD <= tx_buffer[7];"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 377,
+      "text": "                TX_BIT5:   TXD <= tx_buffer[5];",
+      "context": [
+        {
+          "line": 374,
+          "text": "                TX_BIT2:   TXD <= tx_buffer[2];"
+        },
+        {
+          "line": 375,
+          "text": "                TX_BIT3:   TXD <= tx_buffer[3];"
+        },
+        {
+          "line": 376,
+          "text": "                TX_BIT4:   TXD <= tx_buffer[4];"
+        },
+        {
+          "line": 377,
+          "text": "                TX_BIT5:   TXD <= tx_buffer[5];"
+        },
+        {
+          "line": 378,
+          "text": "                TX_BIT6:   TXD <= tx_buffer[6];"
+        },
+        {
+          "line": 379,
+          "text": "                TX_BIT7:   TXD <= tx_buffer[7];"
+        },
+        {
+          "line": 380,
+          "text": "                TX_PARITY: TXD <= parity_bit;"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 378,
+      "text": "                TX_BIT6:   TXD <= tx_buffer[6];",
+      "context": [
+        {
+          "line": 375,
+          "text": "                TX_BIT3:   TXD <= tx_buffer[3];"
+        },
+        {
+          "line": 376,
+          "text": "                TX_BIT4:   TXD <= tx_buffer[4];"
+        },
+        {
+          "line": 377,
+          "text": "                TX_BIT5:   TXD <= tx_buffer[5];"
+        },
+        {
+          "line": 378,
+          "text": "                TX_BIT6:   TXD <= tx_buffer[6];"
+        },
+        {
+          "line": 379,
+          "text": "                TX_BIT7:   TXD <= tx_buffer[7];"
+        },
+        {
+          "line": 380,
+          "text": "                TX_PARITY: TXD <= parity_bit;"
+        },
+        {
+          "line": 381,
+          "text": "                TX_STOP1:  TXD <= 1'b1;"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 379,
+      "text": "                TX_BIT7:   TXD <= tx_buffer[7];",
+      "context": [
+        {
+          "line": 376,
+          "text": "                TX_BIT4:   TXD <= tx_buffer[4];"
+        },
+        {
+          "line": 377,
+          "text": "                TX_BIT5:   TXD <= tx_buffer[5];"
+        },
+        {
+          "line": 378,
+          "text": "                TX_BIT6:   TXD <= tx_buffer[6];"
+        },
+        {
+          "line": 379,
+          "text": "                TX_BIT7:   TXD <= tx_buffer[7];"
+        },
+        {
+          "line": 380,
+          "text": "                TX_PARITY: TXD <= parity_bit;"
+        },
+        {
+          "line": 381,
+          "text": "                TX_STOP1:  TXD <= 1'b1;"
+        },
+        {
+          "line": 382,
+          "text": "                TX_STOP2:  TXD <= 1'b1;"
+        }
+      ]
+    }
+  ]
+}

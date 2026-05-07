@@ -1,0 +1,358 @@
+{
+  "pattern": "data_mask",
+  "searched_files": 1,
+  "match_count": 10,
+  "truncated": false,
+  "matches": [
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 55,
+      "text": "    reg [7:0]  data_mask;     // Mask for sub-8-bit data",
+      "context": [
+        {
+          "line": 52,
+          "text": "    wire        fifo_empty;    // FIFO empty flag (from sub-module)"
+        },
+        {
+          "line": 53,
+          "text": "    wire        fifo_full;     // FIFO full flag (from sub-module)"
+        },
+        {
+          "line": 54,
+          "text": "    wire [4:0]  fifo_count;   // FIFO data count (from sub-module)"
+        },
+        {
+          "line": 55,
+          "text": "    reg [7:0]  data_mask;     // Mask for sub-8-bit data"
+        },
+        {
+          "line": 56,
+          "text": "    wire        parity_en;     // Parity enable (from lcr_latch[3])"
+        },
+        {
+          "line": 57,
+          "text": "    wire        parity_xor;    // XOR reduction of masked tx_buffer"
+        },
+        {
+          "line": 58,
+          "text": "    wire [1:0]  data_bits_enc; // Data bits encoding (lcr_latch[1:0])"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 93,
+      "text": "            2'b00: data_mask = 8'h1F; // 5-bit: bits [4:0] valid",
+      "context": [
+        {
+          "line": 90,
+          "text": "    // Data mask: LSB-aligned, upper bits zeroed for sub-8-bit data"
+        },
+        {
+          "line": 91,
+          "text": "    always @(*) begin"
+        },
+        {
+          "line": 92,
+          "text": "        case (data_bits_enc)"
+        },
+        {
+          "line": 93,
+          "text": "            2'b00: data_mask = 8'h1F; // 5-bit: bits [4:0] valid"
+        },
+        {
+          "line": 94,
+          "text": "            2'b01: data_mask = 8'h3F; // 6-bit: bits [5:0] valid"
+        },
+        {
+          "line": 95,
+          "text": "            2'b10: data_mask = 8'h7F; // 7-bit: bits [6:0] valid"
+        },
+        {
+          "line": 96,
+          "text": "            2'b11: data_mask = 8'hFF; // 8-bit: all bits valid"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 94,
+      "text": "            2'b01: data_mask = 8'h3F; // 6-bit: bits [5:0] valid",
+      "context": [
+        {
+          "line": 91,
+          "text": "    always @(*) begin"
+        },
+        {
+          "line": 92,
+          "text": "        case (data_bits_enc)"
+        },
+        {
+          "line": 93,
+          "text": "            2'b00: data_mask = 8'h1F; // 5-bit: bits [4:0] valid"
+        },
+        {
+          "line": 94,
+          "text": "            2'b01: data_mask = 8'h3F; // 6-bit: bits [5:0] valid"
+        },
+        {
+          "line": 95,
+          "text": "            2'b10: data_mask = 8'h7F; // 7-bit: bits [6:0] valid"
+        },
+        {
+          "line": 96,
+          "text": "            2'b11: data_mask = 8'hFF; // 8-bit: all bits valid"
+        },
+        {
+          "line": 97,
+          "text": "            default: data_mask = 8'hFF;"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 95,
+      "text": "            2'b10: data_mask = 8'h7F; // 7-bit: bits [6:0] valid",
+      "context": [
+        {
+          "line": 92,
+          "text": "        case (data_bits_enc)"
+        },
+        {
+          "line": 93,
+          "text": "            2'b00: data_mask = 8'h1F; // 5-bit: bits [4:0] valid"
+        },
+        {
+          "line": 94,
+          "text": "            2'b01: data_mask = 8'h3F; // 6-bit: bits [5:0] valid"
+        },
+        {
+          "line": 95,
+          "text": "            2'b10: data_mask = 8'h7F; // 7-bit: bits [6:0] valid"
+        },
+        {
+          "line": 96,
+          "text": "            2'b11: data_mask = 8'hFF; // 8-bit: all bits valid"
+        },
+        {
+          "line": 97,
+          "text": "            default: data_mask = 8'hFF;"
+        },
+        {
+          "line": 98,
+          "text": "        endcase"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 96,
+      "text": "            2'b11: data_mask = 8'hFF; // 8-bit: all bits valid",
+      "context": [
+        {
+          "line": 93,
+          "text": "            2'b00: data_mask = 8'h1F; // 5-bit: bits [4:0] valid"
+        },
+        {
+          "line": 94,
+          "text": "            2'b01: data_mask = 8'h3F; // 6-bit: bits [5:0] valid"
+        },
+        {
+          "line": 95,
+          "text": "            2'b10: data_mask = 8'h7F; // 7-bit: bits [6:0] valid"
+        },
+        {
+          "line": 96,
+          "text": "            2'b11: data_mask = 8'hFF; // 8-bit: all bits valid"
+        },
+        {
+          "line": 97,
+          "text": "            default: data_mask = 8'hFF;"
+        },
+        {
+          "line": 98,
+          "text": "        endcase"
+        },
+        {
+          "line": 99,
+          "text": "    end"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 97,
+      "text": "            default: data_mask = 8'hFF;",
+      "context": [
+        {
+          "line": 94,
+          "text": "            2'b01: data_mask = 8'h3F; // 6-bit: bits [5:0] valid"
+        },
+        {
+          "line": 95,
+          "text": "            2'b10: data_mask = 8'h7F; // 7-bit: bits [6:0] valid"
+        },
+        {
+          "line": 96,
+          "text": "            2'b11: data_mask = 8'hFF; // 8-bit: all bits valid"
+        },
+        {
+          "line": 97,
+          "text": "            default: data_mask = 8'hFF;"
+        },
+        {
+          "line": 98,
+          "text": "        endcase"
+        },
+        {
+          "line": 99,
+          "text": "    end"
+        },
+        {
+          "line": 100,
+          "text": ""
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 103,
+      "text": "    assign parity_xor = ^(tx_buffer & data_mask);",
+      "context": [
+        {
+          "line": 100,
+          "text": ""
+        },
+        {
+          "line": 101,
+          "text": "    // Parity XOR: reduction XOR of masked tx_buffer"
+        },
+        {
+          "line": 102,
+          "text": "    // Upper zero bits don't affect XOR result"
+        },
+        {
+          "line": 103,
+          "text": "    assign parity_xor = ^(tx_buffer & data_mask);"
+        },
+        {
+          "line": 104,
+          "text": ""
+        },
+        {
+          "line": 105,
+          "text": "    //========================================================================"
+        },
+        {
+          "line": 106,
+          "text": "    // Busy Flag"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 276,
+      "text": "                        tx_buffer  <= fifo_rd_data & data_mask; // LSB-aligned, upper bits zeroed",
+      "context": [
+        {
+          "line": 273,
+          "text": "                        // Frame start: latch LCR, pop FIFO, load tx_buffer"
+        },
+        {
+          "line": 274,
+          "text": "                        lcr_latch  <= LCR;"
+        },
+        {
+          "line": 275,
+          "text": "                        tx_fifo_pop <= 1'b1;"
+        },
+        {
+          "line": 276,
+          "text": "                        tx_buffer  <= fifo_rd_data & data_mask; // LSB-aligned, upper bits zeroed"
+        },
+        {
+          "line": 277,
+          "text": "                        // Pre-compute parity bit"
+        },
+        {
+          "line": 278,
+          "text": "                        case (parity_type)"
+        },
+        {
+          "line": 279,
+          "text": "                            2'b00: parity_bit <= ^(fifo_rd_data & data_mask); // Even parity"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 279,
+      "text": "                            2'b00: parity_bit <= ^(fifo_rd_data & data_mask); // Even parity",
+      "context": [
+        {
+          "line": 276,
+          "text": "                        tx_buffer  <= fifo_rd_data & data_mask; // LSB-aligned, upper bits zeroed"
+        },
+        {
+          "line": 277,
+          "text": "                        // Pre-compute parity bit"
+        },
+        {
+          "line": 278,
+          "text": "                        case (parity_type)"
+        },
+        {
+          "line": 279,
+          "text": "                            2'b00: parity_bit <= ^(fifo_rd_data & data_mask); // Even parity"
+        },
+        {
+          "line": 280,
+          "text": "                            2'b01: parity_bit <= ~^(fifo_rd_data & data_mask); // Odd parity"
+        },
+        {
+          "line": 281,
+          "text": "                            2'b10: parity_bit <= 1'b1; // Stick parity 1"
+        },
+        {
+          "line": 282,
+          "text": "                            2'b11: parity_bit <= 1'b0; // Stick parity 0"
+        }
+      ]
+    },
+    {
+      "path": "icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 280,
+      "text": "                            2'b01: parity_bit <= ~^(fifo_rd_data & data_mask); // Odd parity",
+      "context": [
+        {
+          "line": 277,
+          "text": "                        // Pre-compute parity bit"
+        },
+        {
+          "line": 278,
+          "text": "                        case (parity_type)"
+        },
+        {
+          "line": 279,
+          "text": "                            2'b00: parity_bit <= ^(fifo_rd_data & data_mask); // Even parity"
+        },
+        {
+          "line": 280,
+          "text": "                            2'b01: parity_bit <= ~^(fifo_rd_data & data_mask); // Odd parity"
+        },
+        {
+          "line": 281,
+          "text": "                            2'b10: parity_bit <= 1'b1; // Stick parity 1"
+        },
+        {
+          "line": 282,
+          "text": "                            2'b11: parity_bit <= 1'b0; // Stick parity 0"
+        },
+        {
+          "line": 283,
+          "text": "                            default: parity_bit <= 1'b0;"
+        }
+      ]
+    }
+  ]
+}
