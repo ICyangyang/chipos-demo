@@ -1,0 +1,137 @@
+{
+  "module_name": "Uart_tx",
+  "version": "1.0",
+  "description": "UART TX 发送模块，将 8-bit 并行数据转为串行 UART 帧，内置 16x8 FIFO",
+  "hierarchy": {
+    "top": "Uart_tx",
+    "submodules": [
+      {
+        "name": "Uart_tx_fifo",
+        "type": "synchronous_fifo",
+        "depth": 16,
+        "width": 8,
+        "description": "16x8-bit 同步 FIFO 缓冲器"
+      }
+    ],
+    "embedded": [
+      {
+        "name": "TX_Control_FSM",
+        "type": "fsm",
+        "states": 14,
+        "encoding": "binary",
+        "description": "发送控制状态机，内嵌在顶层模块"
+      }
+    ]
+  },
+  "ports": {
+    "inputs": [
+      {"name": "PCLK", "width": 1, "description": "系统主时钟"},
+      {"name": "PRESETn", "width": 1, "description": "低电平有效异步复位"},
+      {"name": "PWDATA", "width": 8, "description": "并行输入数据"},
+      {"name": "tx_fifo_push", "width": 1, "description": "FIFO 写入使能"},
+      {"name": "LCR", "width": 8, "description": "线控制寄存器"},
+      {"name": "enable", "width": 1, "description": "发送过程使能"}
+    ],
+    "outputs": [
+      {"name": "tx_fifo_empty", "width": 1, "description": "FIFO 空标志"},
+      {"name": "tx_fifo_full", "width": 1, "description": "FIFO 满标志"},
+      {"name": "tx_fifo_count", "width": 5, "description": "FIFO 数据计数 (0-16)"},
+      {"name": "busy", "width": 1, "description": "发送忙标志"},
+      {"name": "TXD", "width": 1, "description": "串行数据输出线"}
+    ]
+  },
+  "fifo_submodule_ports": {
+    "inputs": [
+      {"name": "clk", "width": 1, "description": "时钟 (PCLK)"},
+      {"name": "rst_n", "width": 1, "description": "异步复位 (PRESETn)"},
+      {"name": "wr_data", "width": 8, "description": "写入数据 (PWDATA)"},
+      {"name": "wr_en", "width": 1, "description": "写入使能 (tx_fifo_push)"},
+      {"name": "rd_en", "width": 1, "description": "读出使能 (tx_fifo_pop)"}
+    ],
+    "outputs": [
+      {"name": "rd_data", "width": 8, "description": "读出数据 (Read-Through 组合逻辑)"},
+      {"name": "full", "width": 1, "description": "满标志"},
+      {"name": "empty", "width": 1, "description": "空标志"},
+      {"name": "count", "width": 5, "description": "数据计数 (0-16)"}
+    ]
+  },
+  "fsm_states": [
+    {"name": "TX_IDLE", "value": 0, "description": "空闲状态"},
+    {"name": "TX_START", "value": 1, "description": "起始位"},
+    {"name": "TX_BIT0", "value": 2, "description": "数据位0"},
+    {"name": "TX_BIT1", "value": 3, "description": "数据位1"},
+    {"name": "TX_BIT2", "value": 4, "description": "数据位2"},
+    {"name": "TX_BIT3", "value": 5, "description": "数据位3"},
+    {"name": "TX_BIT4", "value": 6, "description": "数据位4"},
+    {"name": "TX_BIT5", "value": 7, "description": "数据位5"},
+    {"name": "TX_BIT6", "value": 8, "description": "数据位6"},
+    {"name": "TX_BIT7", "value": 9, "description": "数据位7"},
+    {"name": "TX_PARITY", "value": 10, "description": "奇偶校验位"},
+    {"name": "TX_STOP1", "value": 11, "description": "停止位1"},
+    {"name": "TX_STOP2", "value": 12, "description": "停止位2"},
+    {"name": "TX_HALF", "value": 13, "description": "半停止位 (1.5 stop bit, 5-bit data only)"}
+  ],
+  "key_registers": [
+    {"name": "tx_state", "width": 4, "description": "FSM 状态寄存器"},
+    {"name": "bit_cnt", "width": 4, "description": "位周期计数器 (0-15)"},
+    {"name": "bit_index", "width": 3, "description": "数据位索引 (0-7)"},
+    {"name": "tx_buffer", "width": 8, "description": "待发送数据锁存器"},
+    {"name": "lcr_latch", "width": 8, "description": "LCR 锁存寄存器 (帧开始时采样)"},
+    {"name": "parity_bit", "width": 1, "description": "预计算奇偶校验位"},
+    {"name": "TXD_reg", "width": 1, "description": "TXD 输出寄存器"}
+  ],
+  "lcr_encoding": {
+    "data_bits": {"field": "[1:0]", "values": {"00": 5, "01": 6, "10": 7, "11": 8}},
+    "stop_bits": {"field": "[2]", "values": {"0": 1, "1": "1.5_or_2"}},
+    "parity_enable": {"field": "[3]", "values": {"0": "disabled", "1": "enabled"}},
+    "parity_type": {"field": "[5:4]", "values": {"00": "even", "01": "odd", "10": "stick_1", "11": "stick_0"}},
+    "reserved": {"field": "[7:6]", "values": "reserved"}
+  },
+  "functional_points": [
+    {"id": "FP-001", "description": "FIFO 数据写入"},
+    {"id": "FP-002", "description": "FIFO 满时写入保护"},
+    {"id": "FP-003", "description": "FIFO 数据读出"},
+    {"id": "FP-004", "description": "FIFO 空时读出保护"},
+    {"id": "FP-005", "description": "FIFO 并发读写"},
+    {"id": "FP-006", "description": "FIFO 空标志生成"},
+    {"id": "FP-007", "description": "FIFO 满标志生成"},
+    {"id": "FP-008", "description": "FIFO 计数器跟踪"},
+    {"id": "FP-009", "description": "空闲状态检测与启动"},
+    {"id": "FP-010", "description": "起始位发送"},
+    {"id": "FP-011", "description": "数据位发送"},
+    {"id": "FP-012", "description": "数据位宽截断"},
+    {"id": "FP-013", "description": "偶校验位生成"},
+    {"id": "FP-014", "description": "奇校验位生成"},
+    {"id": "FP-015", "description": "固定高电平校验位"},
+    {"id": "FP-016", "description": "固定低电平校验位"},
+    {"id": "FP-017", "description": "校验位跳过"},
+    {"id": "FP-018", "description": "单停止位发送"},
+    {"id": "FP-019", "description": "双停止位发送"},
+    {"id": "FP-020", "description": "1.5 停止位发送"},
+    {"id": "FP-021", "description": "位计数器定时"},
+    {"id": "FP-022", "description": "enable 暂停发送"},
+    {"id": "FP-023", "description": "enable 恢复发送"},
+    {"id": "FP-024", "description": "busy 标志管理"},
+    {"id": "FP-025", "description": "TXD 空闲电平"},
+    {"id": "FP-026", "description": "异步复位"},
+    {"id": "FP-027", "description": "LCR 动态配置 (帧开始锁存)"},
+    {"id": "FP-028", "description": "tx_buffer 加载"}
+  ],
+  "architecture_decisions": {
+    "fsm_encoding": "binary (4-bit, 14 states)",
+    "fsm_style": "three-segment Mealy with registered TXD output",
+    "fifo_implementation": "separate sub-module (Uart_tx_fifo)",
+    "fsm_placement": "embedded in top-level (Uart_tx)",
+    "lcr_strategy": "latched at frame start (lcr_latch register)",
+    "enable_pause": "bit_cnt freezes immediately",
+    "data_mask": "LSB-aligned, upper bits zeroed via data_mask",
+    "fifo_full_push": "silently ignored, no error flag",
+    "fifo_pop_timing": "read-through combinational output",
+    "parity_strategy": "pre-computed at frame start, stored in parity_bit register",
+    "stop_bit_1_5": "TX_HALF state with bit_cnt terminal count=7",
+    "reset_strategy": "async assert, sync release"
+  },
+  "clock_domain": "single PCLK domain, no CDC",
+  "baud_divisor": 16,
+  "area_estimate": "500-800 GE"
+}

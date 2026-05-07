@@ -1,0 +1,5 @@
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:65: error: Unknown module type: Uart_tx_fifo
+2 error(s) during elaboration.
+*** These modules were missing:
+        Uart_tx_fifo referenced 1 times.
+***

@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260507_101420_verilog_syntax_check_33a95353",
+  "tool_name": "verilog_syntax_check",
+  "status": "success",
+  "start_ts": 1778148860.8983686,
+  "end_ts": 1778148860.9262557,
+  "duration_ms": 27,
+  "workspace": "/workspace/icwork/uart_tx",
+  "trace_root": "/workspace/icwork/uart_tx/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 1,
+  "summary": {}
+}

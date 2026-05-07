@@ -1,0 +1,13 @@
+{
+  "tool": "verilog_syntax_check",
+  "success": true,
+  "files": [
+    "Uart_tx.v",
+    "Uart_tx_fifo.v"
+  ],
+  "top_module": "Uart_tx",
+  "stdout": "",
+  "stderr": "",
+  "has_errors": false,
+  "command": "/opt/oss-cad-suite/bin/iverilog -Wall -s Uart_tx -o /dev/null /workspace/icwork/uart_tx/01_rtl/Uart_tx.v /workspace/icwork/uart_tx/01_rtl/Uart_tx_fifo.v"
+}

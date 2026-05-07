@@ -1,0 +1,31 @@
+{
+  "tool": "verilog_lint",
+  "success": false,
+  "stdout": "",
+  "stderr": "/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:65: error: Unknown module type: Uart_tx_fifo\n2 error(s) during elaboration.\n*** These modules were missing:\n        Uart_tx_fifo referenced 1 times.\n***\n",
+  "command": "/opt/oss-cad-suite/bin/iverilog -Wall -o /dev/null /workspace/icwork/uart_tx/01_rtl/Uart_tx.v",
+  "violations": [
+    {
+      "line": 65,
+      "column": 0,
+      "rule": "iverilog",
+      "message": "Unknown module type: Uart_tx_fifo",
+      "severity": "error",
+      "file": "/workspace/icwork/uart_tx/01_rtl/Uart_tx.v"
+    },
+    {
+      "file": "/workspace/icwork/uart_tx/01_rtl/Uart_tx.v",
+      "line": 0,
+      "column": 0,
+      "rule": "iverilog",
+      "message": "2 error(s) during elaboration.",
+      "severity": "error"
+    }
+  ],
+  "violation_count": 2,
+  "parse_error": null,
+  "summary": {
+    "errors": 2,
+    "warnings": 0
+  }
+}

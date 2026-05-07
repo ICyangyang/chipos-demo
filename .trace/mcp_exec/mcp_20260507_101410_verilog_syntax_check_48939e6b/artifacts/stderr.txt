@@ -1,0 +1,35 @@
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:263: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:367: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:370: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:371: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:372: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:373: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:374: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:375: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:376: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:377: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:378: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:379: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:380: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:381: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:382: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:383: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:384: error: 'TXD' is not a valid l-value for a procedural assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:20:      : 'TXD' is declared here as a wire.
+17 error(s) during elaboration.

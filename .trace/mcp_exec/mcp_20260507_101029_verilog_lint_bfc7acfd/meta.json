@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260507_101029_verilog_lint_bfc7acfd",
+  "tool_name": "verilog_lint",
+  "status": "success",
+  "start_ts": 1778148629.5499003,
+  "end_ts": 1778148629.5966043,
+  "duration_ms": 46,
+  "workspace": "/workspace/icwork/uart_tx",
+  "trace_root": "/workspace/icwork/uart_tx/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 3,
+  "summary": {}
+}

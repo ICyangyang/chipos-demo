@@ -1,0 +1,43 @@
+/workspace/icwork/uart_tx/01_rtl/Uart_tx_fifo.v:29: error: Variable 'count' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx_fifo.v:29:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx_fifo.v:30: error: Variable 'empty' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx_fifo.v:30:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx_fifo.v:31: error: Variable 'full' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx_fifo.v:31:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx_fifo.v:32: error: Variable 'rd_data' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx_fifo.v:32:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:71: error: Variable 'fifo_rd_data' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:71:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:71: error: Output port expression must support a continuous assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:71:      : Port 6 (rd_data) of Uart_tx_fifo is connected to Uart_tx.fifo_rd_data
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:72: error: Variable 'fifo_full' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:72:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:72: error: Output port expression must support a continuous assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:72:      : Port 7 (full) of Uart_tx_fifo is connected to Uart_tx.fifo_full
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:73: error: Variable 'fifo_empty' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:73:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:73: error: Output port expression must support a continuous assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:73:      : Port 8 (empty) of Uart_tx_fifo is connected to Uart_tx.fifo_empty
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:74: error: Variable 'fifo_count' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:74:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:74: error: Output port expression must support a continuous assignment.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:74:      : Port 9 (count) of Uart_tx_fifo is connected to Uart_tx.fifo_count
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:78: error: Variable 'tx_fifo_empty' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:78:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:79: error: Variable 'tx_fifo_full' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:79:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:80: error: Variable 'tx_fifo_count' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:80:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:85: error: Variable 'data_bits_enc' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:85:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:86: error: Variable 'parity_en' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:86:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:87: error: Variable 'stop_bits_en' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:87:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:88: error: Variable 'parity_type' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:88:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:103: error: Variable 'parity_xor' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:103:      : This is allowed when SystemVerilog is enabled.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:108: error: Variable 'busy' cannot be driven by a continuous assignment/module.
+/workspace/icwork/uart_tx/01_rtl/Uart_tx.v:108:      : This is allowed when SystemVerilog is enabled.
+21 error(s) during elaboration.
