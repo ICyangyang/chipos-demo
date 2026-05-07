@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Session data
+.sessions/
+.messages/
+
+# VCD waveforms (large files)
+*.vcd
+
+# Log files
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

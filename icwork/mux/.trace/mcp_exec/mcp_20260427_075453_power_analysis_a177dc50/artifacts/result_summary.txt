@@ -1,0 +1,5 @@
+{
+  "tool": "power_analysis",
+  "success": false,
+  "error": "ERROR: Module `\\MUX2_X1' referenced in module `\\mux2to1' in cell `\\_7_' is not part of the design.\n"
+}

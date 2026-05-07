@@ -1,0 +1,138 @@
+
+==========================================================================
+global place report_tns
+--------------------------------------------------------------------------
+tns max 0.00
+
+==========================================================================
+global place report_wns
+--------------------------------------------------------------------------
+wns max 0.00
+
+==========================================================================
+global place report_worst_slack
+--------------------------------------------------------------------------
+worst slack max 8.78
+
+==========================================================================
+global place report_clock_min_period
+--------------------------------------------------------------------------
+clk period_min = 1.22 fmax = 819.03
+
+==========================================================================
+global place report_checks -path_delay min
+--------------------------------------------------------------------------
+Startpoint: d[1]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: d[0]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.00    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                  0.00    0.00    0.00 ^ d[1]$_DFF_PN1_/CK (DFFS_X1)
+     1    1.30    0.01    0.08    0.08 v d[1]$_DFF_PN1_/Q (DFFS_X1)
+                                         d[1] (net)
+                  0.01    0.00    0.08 v d[0]$_DFF_PN1_/D (DFFS_X1)
+                                  0.08   data arrival time
+
+                  0.00    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          0.05    0.05   clock uncertainty
+                          0.00    0.05   clock reconvergence pessimism
+                                  0.05 ^ d[0]$_DFF_PN1_/CK (DFFS_X1)
+                          0.00    0.05   library hold time
+                                  0.05   data required time
+-----------------------------------------------------------------------------
+                                  0.05   data required time
+                                 -0.08   data arrival time
+-----------------------------------------------------------------------------
+                                  0.03   slack (MET)
+
+
+
+==========================================================================
+global place report_checks -path_delay max
+--------------------------------------------------------------------------
+Startpoint: d[0]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: y (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.00    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                  0.00    0.00    0.00 ^ d[0]$_DFF_PN1_/CK (DFFS_X1)
+     2    5.46    0.02    0.10    0.10 ^ d[0]$_DFF_PN1_/Q (DFFS_X1)
+                                         net2 (net)
+                  0.02    0.00    0.10 ^ output2/A (BUF_X1)
+     1    2.09    0.01    0.03    0.12 ^ output2/Z (BUF_X1)
+                                         y (net)
+                  0.01    0.00    0.12 ^ y (out)
+                                  0.12   data arrival time
+
+                  0.00   10.00   10.00   clock clk (rise edge)
+                          0.00   10.00   clock network delay (ideal)
+                         -0.10    9.90   clock uncertainty
+                          0.00    9.90   clock reconvergence pessimism
+                         -1.00    8.90   output external delay
+                                  8.90   data required time
+-----------------------------------------------------------------------------
+                                  8.90   data required time
+                                 -0.12   data arrival time
+-----------------------------------------------------------------------------
+                                  8.78   slack (MET)
+
+
+
+==========================================================================
+global place report_checks -unconstrained
+--------------------------------------------------------------------------
+Startpoint: d[0]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: y (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.00    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                  0.00    0.00    0.00 ^ d[0]$_DFF_PN1_/CK (DFFS_X1)
+     2    5.46    0.02    0.10    0.10 ^ d[0]$_DFF_PN1_/Q (DFFS_X1)
+                                         net2 (net)
+                  0.02    0.00    0.10 ^ output2/A (BUF_X1)
+     1    2.09    0.01    0.03    0.12 ^ output2/Z (BUF_X1)
+                                         y (net)
+                  0.01    0.00    0.12 ^ y (out)
+                                  0.12   data arrival time
+
+                  0.00   10.00   10.00   clock clk (rise edge)
+                          0.00   10.00   clock network delay (ideal)
+                         -0.10    9.90   clock uncertainty
+                          0.00    9.90   clock reconvergence pessimism
+                         -1.00    8.90   output external delay
+                                  8.90   data required time
+-----------------------------------------------------------------------------
+                                  8.90   data required time
+                                 -0.12   data arrival time
+-----------------------------------------------------------------------------
+                                  8.78   slack (MET)
+
+
+
+==========================================================================
+global place report_power
+--------------------------------------------------------------------------
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power (Watts)
+----------------------------------------------------------------
+Sequential             1.47e-06   0.00e+00   3.45e-07   1.82e-06  93.3%
+Combinational          2.41e-08   3.51e-08   7.14e-08   1.31e-07   6.7%
+Clock                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  1.50e-06   3.51e-08   4.17e-07   1.95e-06 100.0%
+                          76.8%       1.8%      21.4%

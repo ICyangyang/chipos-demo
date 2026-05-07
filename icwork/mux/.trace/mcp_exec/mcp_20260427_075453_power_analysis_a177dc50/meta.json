@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260427_075453_power_analysis_a177dc50",
+  "tool_name": "power_analysis",
+  "status": "error",
+  "start_ts": 1777276493.0893066,
+  "end_ts": 1777276493.095787,
+  "duration_ms": 6,
+  "workspace": "/app/backend/icwork/mux",
+  "trace_root": "/app/backend/icwork/mux/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 1,
+  "summary": {}
+}

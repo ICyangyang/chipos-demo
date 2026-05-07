@@ -1,0 +1,22 @@
+{
+  "tool": "verilog_simulate",
+  "success": true,
+  "compile_success": true,
+  "report_path": "/app/backend/icwork/mux/sim/report_20260427_024324.txt",
+  "artifacts": [
+    "/app/backend/icwork/mux/sim/report_20260427_024324.txt"
+  ],
+  "selected_backend": "verilator",
+  "fallback_triggered": false,
+  "attempts": [
+    {
+      "backend": "verilator",
+      "success": true,
+      "phase": "",
+      "error_category": "",
+      "duration_ms": 3855
+    }
+  ],
+  "sim_stdout": "============================================================\n  Testbench for mux2to1 (DATA_WIDTH = 8)\n============================================================\n\n--- Test Group 1: sel=0 (out = in0) ---\n[PASS] Test 1:        sel=0, in0=0x55, in1=0xAA\n[PASS] Test 2:        sel=0, in0=0xAA, in1=0x55\n[PASS] Test 3:               sel=0, random data\n[PASS] Test 4:               sel=0, random data\n[PASS] Test 5:               sel=0, random data\n[PASS] Test 6:               sel=0, random data\n[PASS] Test 7:               sel=0, random data\n[PASS] Test 8:               sel=0, random data\n[PASS] Test 9:               sel=0, random data\n[PASS] Test 10:               sel=0, random data\n[PASS] Test 11:               sel=0, random data\n[PASS] Test 12:               sel=0, random data\n[PASS] Test 13:               sel=0, random data\n[PASS] Test 14:               sel=0, random data\n[PASS] Test 15:               sel=0, random data\n[PASS] Test 16:               sel=0, random data\n[PASS] Test 17:               sel=0, random data\n[PASS] Test 18:               sel=0, random data\n[PASS] Test 19:               sel=0, random data\n[PASS] Test 20:               sel=0, random data\n[PASS] Test 21:               sel=0, random data\n[PASS] Test 22:               sel=0, random data\n\n--- Test Group 2: sel=1 (out = in1) ---\n[PASS] Test 23:        sel=1, in0=0x55, in1=0xAA\n[PASS] Test 24:        sel=1, in0=0xAA, in1=0x55\n[PASS] Test 25:               sel=1, random data\n[PASS] Test 26:               sel=1, random data\n[PASS] Test 27:               sel=1, random data\n[PASS] Test 28:               sel=1, random data\n[PASS] Test 29:               sel=1, random data\n[PASS] Test 30:               sel=1, random data\n[PASS] Test 31:               sel=1, random data\n[PASS] Test 32:               sel=1, random data\n[PASS] Test 33:               sel=1, random data\n[PASS] Test 34:               sel=1, random data\n[PASS] Test 35:               sel=1, random data\n[PASS] Test 36:               sel=1, random data\n[PASS] Test 37:               sel=1, random data\n[PASS] Test 38:               sel=1, random data\n[PASS] Test 39:               sel=1, random data\n[PASS] Test 40:               sel=1, random data\n[PASS] Test 41:               sel=1, random data\n[PASS] Test 42:               sel=1, random data\n[PASS] Test 43:               sel=1, random data\n[PASS] Test 44:               sel=1, random data\n\n--- Test Group 3: Boundary Conditions ---\n[PASS] Test 45:                 all zeros, sel=0\n[PASS] Test 46:                 all zeros, sel=1\n[PASS] Test 47:                  all ones, sel=0\n[PASS] Test 48:                  all ones, sel=1\n[PASS] Test 49:      in0=all 0, in1=all 1, sel=0\n[PASS] Test 50:      in0=all 0, in1=all 1, sel=1\n[PASS] Test 51:      in0=all 1, in1=all 0, sel=0\n[PASS] Test 52:      in0=all 1, in1=all 0, sel=1\n\n--- Test Group 4: Toggle Patterns ---\n[PASS] Test 53:  toggle pattern 0x55/0xAA, sel=0\n[PASS] Test 54:  toggle pattern 0x55/0xAA, sel=1\n[PASS] Test 55:  toggle pattern 0xAA",
+  "vcd_path": "/app/backend/icwork/mux/sim/mux2to1.vcd"
+}

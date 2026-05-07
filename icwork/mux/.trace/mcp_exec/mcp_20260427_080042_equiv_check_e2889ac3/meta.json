@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260427_080042_equiv_check_e2889ac3",
+  "tool_name": "equiv_check",
+  "status": "success",
+  "start_ts": 1777276842.2713645,
+  "end_ts": 1777276842.3338284,
+  "duration_ms": 62,
+  "workspace": "/app/backend/icwork/mux",
+  "trace_root": "/app/backend/icwork/mux/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 1,
+  "summary": {}
+}

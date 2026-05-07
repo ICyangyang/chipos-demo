@@ -1,0 +1,80 @@
+VCD info: dumpfile mux2to1_gate.vcd opened for output.
+============================================================
+  Testbench for mux2to1_gate (Gate-Level Netlist)
+  DATA_WIDTH = 8 (fixed)
+============================================================
+
+--- Test Group 1: sel=0 (out = in0) ---
+[PASS] Test 1:        sel=0, in0=0x55, in1=0xAA
+[PASS] Test 2:        sel=0, in0=0xAA, in1=0x55
+[PASS] Test 3:               sel=0, random data
+[PASS] Test 4:               sel=0, random data
+[PASS] Test 5:               sel=0, random data
+[PASS] Test 6:               sel=0, random data
+[PASS] Test 7:               sel=0, random data
+[PASS] Test 8:               sel=0, random data
+[PASS] Test 9:               sel=0, random data
+[PASS] Test 10:               sel=0, random data
+[PASS] Test 11:               sel=0, random data
+[PASS] Test 12:               sel=0, random data
+[PASS] Test 13:               sel=0, random data
+[PASS] Test 14:               sel=0, random data
+[PASS] Test 15:               sel=0, random data
+[PASS] Test 16:               sel=0, random data
+[PASS] Test 17:               sel=0, random data
+[PASS] Test 18:               sel=0, random data
+[PASS] Test 19:               sel=0, random data
+[PASS] Test 20:               sel=0, random data
+[PASS] Test 21:               sel=0, random data
+[PASS] Test 22:               sel=0, random data
+
+--- Test Group 2: sel=1 (out = in1) ---
+[PASS] Test 23:        sel=1, in0=0x55, in1=0xAA
+[PASS] Test 24:        sel=1, in0=0xAA, in1=0x55
+[PASS] Test 25:               sel=1, random data
+[PASS] Test 26:               sel=1, random data
+[PASS] Test 27:               sel=1, random data
+[PASS] Test 28:               sel=1, random data
+[PASS] Test 29:               sel=1, random data
+[PASS] Test 30:               sel=1, random data
+[PASS] Test 31:               sel=1, random data
+[PASS] Test 32:               sel=1, random data
+[PASS] Test 33:               sel=1, random data
+[PASS] Test 34:               sel=1, random data
+[PASS] Test 35:               sel=1, random data
+[PASS] Test 36:               sel=1, random data
+[PASS] Test 37:               sel=1, random data
+[PASS] Test 38:               sel=1, random data
+[PASS] Test 39:               sel=1, random data
+[PASS] Test 40:               sel=1, random data
+[PASS] Test 41:               sel=1, random data
+[PASS] Test 42:               sel=1, random data
+[PASS] Test 43:               sel=1, random data
+[PASS] Test 44:               sel=1, random data
+
+--- Test Group 3: Boundary Conditions ---
+[PASS] Test 45:                 all zeros, sel=0
+[PASS] Test 46:                 all zeros, sel=1
+[PASS] Test 47:                  all ones, sel=0
+[PASS] Test 48:                  all ones, sel=1
+[PASS] Test 49:      in0=all 0, in1=all 1, sel=0
+[PASS] Test 50:      in0=all 0, in1=all 1, sel=1
+[PASS] Test 51:      in0=all 1, in1=all 0, sel=0
+[PASS] Test 52:      in0=all 1, in1=all 0, sel=1
+
+--- Test Group 4: Toggle Patterns ---
+[PASS] Test 53:  toggle pattern 0x55/0xAA, sel=0
+[PASS] Test 54:  toggle pattern 0x55/0xAA, sel=1
+[PASS] Test 55:  toggle pattern 0xAA/0x55, sel=0
+[PASS] Test 56:  toggle pattern 0xAA/0x55, sel=1
+
+============================================================
+  Test Summary: Gate-Level Netlist (DATA_WIDTH = 8)
+  Total Tests:  56
+  Passed:       56
+  Failed:       0
+============================================================
+
+>>> ALL TESTS PASSED <<<
+
+tb_mux2to1_gate.sv:193: $finish called at 76000 (1ps)

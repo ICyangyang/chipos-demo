@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260427_032537_verilog_lint_e4e64606",
+  "tool_name": "verilog_lint",
+  "status": "success",
+  "start_ts": 1777260337.3478425,
+  "end_ts": 1777260337.3494325,
+  "duration_ms": 1,
+  "workspace": "/app/backend/icwork/mux",
+  "trace_root": "/app/backend/icwork/mux/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 2,
+  "summary": {}
+}

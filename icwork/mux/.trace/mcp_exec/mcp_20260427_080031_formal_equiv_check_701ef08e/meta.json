@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260427_080031_formal_equiv_check_701ef08e",
+  "tool_name": "formal_equiv_check",
+  "status": "success",
+  "start_ts": 1777276831.069423,
+  "end_ts": 1777276831.082505,
+  "duration_ms": 13,
+  "workspace": "/app/backend/icwork/mux",
+  "trace_root": "/app/backend/icwork/mux/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 2,
+  "summary": {}
+}

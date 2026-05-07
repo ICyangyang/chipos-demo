@@ -1,0 +1,107 @@
+Verilator Report - 2026-04-28T01:48:43.371479
+Compile cmd: verilator --binary -j 8 -Wno-TIMESCALEMOD -Wno-WIDTHEXPAND -Wno-WIDTHTRUNC -Wno-CASEINCOMPLETE -Wno-UNOPTFLAT --trace -o sim_bin --top-module tb_lfsr_4bit /tmp/chipos_verilator_88nb6lsx/temp_tb_lfsr_4bit.v /app/backend/icwork/lfsr/01_rtl/lfsr_4bit.v
+Compile rc: 0
+
+Sim rc: 0
+Sim stdout:
+
+========================================
+4-bit LFSR TestBench
+Characteristic Polynomial: x^4 + x + 1
+Maximum Period: 15 cycles
+========================================
+Start time: 0
+
+========================================
+TEST 1: Reset Initialization
+========================================
+[INFO] Applying reset...
+[INFO] Reset released at time 10
+[PASS] Reset test: y=1 (expected 1)
+----------------------------------------
+
+========================================
+TEST 2: Full Sequence Verification
+========================================
+[INFO] Applying reset...
+[INFO] Reset released at time 30
+[INFO] Cycle  0: y=1 (expected y=1)
+[INFO] Cycle  1: y=1 (expected y=1)
+[INFO] Cycle  2: y=1 (expected y=1)
+[INFO] Cycle  3: y=1 (expected y=1)
+[INFO] Cycle  4: y=0 (expected y=0)
+[INFO] Cycle  5: y=1 (expected y=1)
+[INFO] Cycle  6: y=0 (expected y=0)
+[INFO] Cycle  7: y=1 (expected y=1)
+[INFO] Cycle  8: y=1 (expected y=1)
+[INFO] Cycle  9: y=0 (expected y=0)
+[INFO] Cycle 10: y=0 (expected y=0)
+[INFO] Cycle 11: y=1 (expected y=1)
+[INFO] Cycle 12: y=0 (expected y=0)
+[INFO] Cycle 13: y=0 (expected y=0)
+[INFO] Cycle 14: y=0 (expected y=0)
+
+Sequence Comparison:
+----------------------------------------
+[PASS] Cycle  0: y=1 matches expected
+[PASS] Cycle  1: y=1 matches expected
+[PASS] Cycle  2: y=1 matches expected
+[PASS] Cycle  3: y=1 matches expected
+[PASS] Cycle  4: y=0 matches expected
+[PASS] Cycle  5: y=1 matches expected
+[PASS] Cycle  6: y=0 matches expected
+[PASS] Cycle  7: y=1 matches expected
+[PASS] Cycle  8: y=1 matches expected
+[PASS] Cycle  9: y=0 matches expected
+[PASS] Cycle 10: y=0 matches expected
+[PASS] Cycle 11: y=1 matches expected
+[PASS] Cycle 12: y=0 matches expected
+[PASS] Cycle 13: y=0 matches expected
+[PASS] Cycle 14: y=0 matches expected
+----------------------------------------
+
+========================================
+TEST 3: Periodicity Verification
+========================================
+[INFO] Applying reset...
+[INFO] Reset released at time 190
+[INFO] y at cycle 15: 0
+[INFO] y at cycle 16: 1
+[PASS] Periodicity: cycle 16 y=1 matches cycle 0 y=1
+
+Extended Periodicity Check (cycles 16-30):
+----------------------------------------
+[PASS] Cycle 16: y=1 matches expected y[1]=1
+[PASS] Cycle 17: y=1 matches expected y[2]=1
+[PASS] Cycle 18: y=1 matches expected y[3]=1
+[PASS] Cycle 19: y=0 matches expected y[4]=0
+[PASS] Cycle 20: y=1 matches expected y[5]=1
+[PASS] Cycle 21: y=0 matches expected y[6]=0
+[PASS] Cycle 22: y=1 matches expected y[7]=1
+[PASS] Cycle 23: y=1 matches expected y[8]=1
+[PASS] Cycle 24: y=0 matches expected y[9]=0
+[PASS] Cycle 25: y=0 matches expected y[10]=0
+[PASS] Cycle 26: y=1 matches expected y[11]=1
+[PASS] Cycle 27: y=0 matches expected y[12]=0
+[PASS] Cycle 28: y=0 matches expected y[13]=0
+[PASS] Cycle 29: y=0 matches expected y[14]=0
+----------------------------------------
+
+========================================
+TEST SUMMARY
+========================================
+  Total Tests:  31
+  Passed:       31
+  Failed:       0
+----------------------------------------
+
+  ==============================
+  ALL TESTS PASSED
+  ==============================
+
+End time: 485
+========================================
+- /tmp/chipos_verilator_88nb6lsx/temp_tb_lfsr_4bit.v:226: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.046 2026-02-28
+- Verilator: $finish at 485ps; walltime 0.000 s; speed 1.882 us/s
+- Verilator: cpu 0.000 s on 1 threads; allocated 6 MB

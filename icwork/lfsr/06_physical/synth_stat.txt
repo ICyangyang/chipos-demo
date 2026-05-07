@@ -1,0 +1,21 @@
+
+20. Printing statistics.
+
+=== lfsr_4bit ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       11        - wires
+       11        - wire bits
+        6        - public wires
+        6        - public wire bits
+        3        - ports
+        3        - port bits
+        5   22.876 cells
+        4    21.28   DFFS_X1
+        1    1.596   XOR2_X1
+
+   Chip area for module '\lfsr_4bit': 22.876000
+     of which used for sequential elements: 21.280000 (93.02%)
+

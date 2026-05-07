@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260427_024324_verilog_simulate_0572125e",
+  "tool_name": "verilog_simulate",
+  "status": "success",
+  "start_ts": 1777257804.4615357,
+  "end_ts": 1777257808.3178377,
+  "duration_ms": 3856,
+  "workspace": "/app/backend/icwork/mux",
+  "trace_root": "/app/backend/icwork/mux/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 3,
+  "summary": {}
+}

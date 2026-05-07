@@ -1,0 +1,6 @@
+{"event_type": "execution_start", "ts": 1777276504.1370049, "seq": 1, "data": {"exec_id": "mcp_20260427_075504_yosys_qor_ba782b3a", "tool_name": "yosys_qor", "workspace": "/app/backend/icwork/mux", "request_summary": {}}}
+{"event_type": "step_start", "ts": 1777276504.1370094, "seq": 2, "data": {"step_id": "step_start", "step_name": "start", "metadata": {"file": "/app/backend/icwork/mux/mux2to1.v", "top": "mux2to1"}}}
+{"event_type": "step_end", "ts": 1777276504.2069836, "seq": 3, "data": {"step_id": "step_sta", "step_name": "sta", "status": "error", "duration_ms": 69}}
+{"event_type": "artifact", "ts": 1777276504.2071118, "seq": 4, "data": {"artifact_id": "result_summary", "step_id": "step_sta", "artifact_type": "result_summary", "path": ".trace/mcp_exec/mcp_20260427_075504_yosys_qor_ba782b3a/artifacts/result_summary.txt", "size_bytes": 155, "preview": "{\n  \"tool\": \"yosys_qor\",\n  \"success\": false,\n  \"error\": \"ERROR: File `/opt/nangate/lib/NangateOpenCellLibrary_typical.lib' not found or is a directory\\n\"\n}"}}
+{"event_type": "step_end", "ts": 1777276504.2071185, "seq": 5, "data": {"step_id": "step__finish", "step_name": "_finish", "status": "error"}}
+{"event_type": "execution_end", "ts": 1777276504.2071202, "seq": 6, "data": {"exec_id": "mcp_20260427_075504_yosys_qor_ba782b3a", "status": "error", "duration_ms": 70, "response_summary": {}}}

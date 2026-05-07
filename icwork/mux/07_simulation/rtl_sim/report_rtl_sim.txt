@@ -1,0 +1,124 @@
+VCD info: dumpfile mux2to1_rtl.vcd opened for output.
+============================================================
+  Testbench for mux2to1 (DATA_WIDTH = 8)
+============================================================
+
+
+############################################################
+#                                                          #
+#        mux2to1 Comprehensive Test Suite                  #
+#        Testing DATA_WIDTH = 4, 8, 16                     #
+#                                                          #
+############################################################
+
+
+
+============================================================
+  Testbench for mux2to1 (DATA_WIDTH = 16)
+============================================================
+
+============================================================
+  Testbench for mux2to1 (DATA_WIDTH = 4)
+============================================================
+
+--- Test Group 1: sel=0 (out = in0) ---
+
+--- sel=0 tests (DATA_WIDTH=16) ---
+
+--- sel=0 tests (DATA_WIDTH=4) ---
+[PASS] Test 1:        sel=0, in0=0x55, in1=0xAA
+[PASS] Test 1:                    sel=0, random
+[PASS] Test 1:                    sel=0, random
+[PASS] Test 2:        sel=0, in0=0xAA, in1=0x55
+[PASS] Test 2:                    sel=0, random
+[PASS] Test 2:                    sel=0, random
+[PASS] Test 3:               sel=0, random data
+[PASS] Test 3:                    sel=0, random
+[PASS] Test 3:                    sel=0, random
+[PASS] Test 4:               sel=0, random data
+[PASS] Test 4:                    sel=0, random
+[PASS] Test 4:                    sel=0, random
+[PASS] Test 5:               sel=0, random data
+[PASS] Test 5:                    sel=0, random
+[PASS] Test 5:                    sel=0, random
+[PASS] Test 6:               sel=0, random data
+[PASS] Test 6:                    sel=0, random
+[PASS] Test 6:                    sel=0, random
+[PASS] Test 7:               sel=0, random data
+[PASS] Test 7:                    sel=0, random
+[PASS] Test 7:                    sel=0, random
+[PASS] Test 8:               sel=0, random data
+[PASS] Test 8:                    sel=0, random
+[PASS] Test 8:                    sel=0, random
+[PASS] Test 9:               sel=0, random data
+[PASS] Test 9:                    sel=0, random
+[PASS] Test 9:                    sel=0, random
+[PASS] Test 10:               sel=0, random data
+[PASS] Test 10:                    sel=0, random
+
+--- sel=1 tests (DATA_WIDTH=16) ---
+[PASS] Test 10:                    sel=0, random
+
+--- sel=1 tests (DATA_WIDTH=4) ---
+[PASS] Test 11:               sel=0, random data
+[PASS] Test 11:                    sel=1, random
+[PASS] Test 11:                    sel=1, random
+[PASS] Test 12:               sel=0, random data
+[PASS] Test 12:                    sel=1, random
+[PASS] Test 12:                    sel=1, random
+[PASS] Test 13:               sel=0, random data
+[PASS] Test 13:                    sel=1, random
+[PASS] Test 13:                    sel=1, random
+[PASS] Test 14:               sel=0, random data
+[PASS] Test 14:                    sel=1, random
+[PASS] Test 14:                    sel=1, random
+[PASS] Test 15:               sel=0, random data
+[PASS] Test 15:                    sel=1, random
+[PASS] Test 15:                    sel=1, random
+[PASS] Test 16:               sel=0, random data
+[PASS] Test 16:                    sel=1, random
+[PASS] Test 16:                    sel=1, random
+[PASS] Test 17:               sel=0, random data
+[PASS] Test 17:                    sel=1, random
+[PASS] Test 17:                    sel=1, random
+[PASS] Test 18:               sel=0, random data
+[PASS] Test 18:                    sel=1, random
+[PASS] Test 18:                    sel=1, random
+[PASS] Test 19:               sel=0, random data
+[PASS] Test 19:                    sel=1, random
+[PASS] Test 19:                    sel=1, random
+[PASS] Test 20:               sel=0, random data
+[PASS] Test 20:                    sel=1, random
+
+--- Boundary tests (DATA_WIDTH=16) ---
+[PASS] Test 20:                    sel=1, random
+
+--- Boundary tests (DATA_WIDTH=4) ---
+[PASS] Test 21:               sel=0, random data
+[PASS] Test 21:    in0=0x0000, in1=0xFFFF, sel=0
+[PASS] Test 21:          in0=0x0, in1=0xF, sel=0
+[PASS] Test 22:               sel=0, random data
+
+--- Test Group 2: sel=1 (out = in1) ---
+[PASS] Test 22:    in0=0x0000, in1=0xFFFF, sel=1
+[PASS] Test 22:          in0=0x0, in1=0xF, sel=1
+[PASS] Test 23:        sel=1, in0=0x55, in1=0xAA
+[PASS] Test 23:    in0=0x1234, in1=0x5678, sel=0
+[PASS] Test 24:        sel=1, in0=0xAA, in1=0x55
+[PASS] Test 24:    in0=0x1234, in1=0x5678, sel=1
+[PASS] Test 25:               sel=1, random data
+[PASS] Test 26:               sel=1, random data
+[PASS] Test 27:               sel=1, random data
+[PASS] Test 28:               sel=1, random data
+[PASS] Test 29:               sel=1, random data
+[PASS] Test 30:               sel=1, random data
+[PASS] Test 31:               sel=1, random data
+
+============================================================
+  Summary (DATA_WIDTH=4): Total=22, Pass=22, Fail=0
+============================================================
+
+>>> ALL TESTS PASSED <<<
+
+tb_mux2to1.sv:287: $finish called at 42000 (1ps)
+[PASS] Test 32:               sel=1, random data

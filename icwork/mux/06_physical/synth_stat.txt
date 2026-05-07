@@ -1,0 +1,21 @@
+
+20. Printing statistics.
+
+=== mux2to1 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+        5        - wires
+       26        - wire bits
+        4        - public wires
+       25        - public wire bits
+        4        - ports
+       25        - port bits
+        9   16.758 cells
+        1    1.862   BUF_X4
+        8   14.896   MUX2_X1
+
+   Chip area for module '\mux2to1': 16.758000
+     of which used for sequential elements: 0.000000 (0.00%)
+

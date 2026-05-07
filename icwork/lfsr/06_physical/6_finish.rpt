@@ -1,0 +1,358 @@
+
+==========================================================================
+finish report_tns
+--------------------------------------------------------------------------
+tns max 0.00
+
+==========================================================================
+finish report_wns
+--------------------------------------------------------------------------
+wns max 0.00
+
+==========================================================================
+finish report_worst_slack
+--------------------------------------------------------------------------
+worst slack max 8.73
+
+==========================================================================
+finish report_clock_min_period
+--------------------------------------------------------------------------
+clk period_min = 1.27 fmax = 786.18
+
+==========================================================================
+finish report_clock_skew
+--------------------------------------------------------------------------
+Clock clk
+   0.05 source latency d[3]$_DFF_PN1_/CK ^
+  -0.05 target latency d[2]$_DFF_PN1_/CK ^
+   0.10 clock uncertainty
+   0.00 CRPR
+--------------
+   0.10 setup skew
+
+
+==========================================================================
+finish report_checks -path_delay min
+--------------------------------------------------------------------------
+Startpoint: d[2]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: d[1]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                          0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock source latency
+     1    2.24    0.00    0.00    0.00 ^ clk (in)
+                                         clk (net)
+                  0.00    0.00    0.00 ^ clkbuf_0_clk/A (CLKBUF_X3)
+     2    3.97    0.01    0.03    0.03 ^ clkbuf_0_clk/Z (CLKBUF_X3)
+                                         clknet_0_clk (net)
+                  0.01    0.00    0.03 ^ clkbuf_1_0__f_clk/A (CLKBUF_X3)
+     2    2.43    0.01    0.03    0.05 ^ clkbuf_1_0__f_clk/Z (CLKBUF_X3)
+                                         clknet_1_0__leaf_clk (net)
+                  0.01    0.00    0.05 ^ d[2]$_DFF_PN1_/CK (DFFS_X1)
+     1    1.28    0.01    0.08    0.14 v d[2]$_DFF_PN1_/Q (DFFS_X1)
+                                         d[2] (net)
+                  0.01    0.00    0.14 v d[1]$_DFF_PN1_/D (DFFS_X1)
+                                  0.14   data arrival time
+
+                          0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock source latency
+     1    2.24    0.00    0.00    0.00 ^ clk (in)
+                                         clk (net)
+                  0.00    0.00    0.00 ^ clkbuf_0_clk/A (CLKBUF_X3)
+     2    3.97    0.01    0.03    0.03 ^ clkbuf_0_clk/Z (CLKBUF_X3)
+                                         clknet_0_clk (net)
+                  0.01    0.00    0.03 ^ clkbuf_1_0__f_clk/A (CLKBUF_X3)
+     2    2.43    0.01    0.03    0.05 ^ clkbuf_1_0__f_clk/Z (CLKBUF_X3)
+                                         clknet_1_0__leaf_clk (net)
+                  0.01    0.00    0.05 ^ d[1]$_DFF_PN1_/CK (DFFS_X1)
+                          0.05    0.10   clock uncertainty
+                          0.00    0.10   clock reconvergence pessimism
+                          0.00    0.11   library hold time
+                                  0.11   data required time
+-----------------------------------------------------------------------------
+                                  0.11   data required time
+                                 -0.14   data arrival time
+-----------------------------------------------------------------------------
+                                  0.03   slack (MET)
+
+
+
+==========================================================================
+finish report_checks -path_delay max
+--------------------------------------------------------------------------
+Startpoint: d[0]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: y (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                          0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock source latency
+     1    2.24    0.00    0.00    0.00 ^ clk (in)
+                                         clk (net)
+                  0.00    0.00    0.00 ^ clkbuf_0_clk/A (CLKBUF_X3)
+     2    3.97    0.01    0.03    0.03 ^ clkbuf_0_clk/Z (CLKBUF_X3)
+                                         clknet_0_clk (net)
+                  0.01    0.00    0.03 ^ clkbuf_1_1__f_clk/A (CLKBUF_X3)
+     2    2.50    0.01    0.03    0.05 ^ clkbuf_1_1__f_clk/Z (CLKBUF_X3)
+                                         clknet_1_1__leaf_clk (net)
+                  0.01    0.00    0.05 ^ d[0]$_DFF_PN1_/CK (DFFS_X1)
+     2    4.58    0.01    0.10    0.15 ^ d[0]$_DFF_PN1_/Q (DFFS_X1)
+                                         net2 (net)
+                  0.01    0.00    0.15 ^ output2/A (BUF_X1)
+     1    1.35    0.01    0.02    0.17 ^ output2/Z (BUF_X1)
+                                         y (net)
+                  0.01    0.00    0.17 ^ y (out)
+                                  0.17   data arrival time
+
+                         10.00   10.00   clock clk (rise edge)
+                          0.00   10.00   clock network delay (propagated)
+                         -0.10    9.90   clock uncertainty
+                          0.00    9.90   clock reconvergence pessimism
+                         -1.00    8.90   output external delay
+                                  8.90   data required time
+-----------------------------------------------------------------------------
+                                  8.90   data required time
+                                 -0.17   data arrival time
+-----------------------------------------------------------------------------
+                                  8.73   slack (MET)
+
+
+
+==========================================================================
+finish report_checks -unconstrained
+--------------------------------------------------------------------------
+Startpoint: d[0]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: y (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                          0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock source latency
+     1    2.24    0.00    0.00    0.00 ^ clk (in)
+                                         clk (net)
+                  0.00    0.00    0.00 ^ clkbuf_0_clk/A (CLKBUF_X3)
+     2    3.97    0.01    0.03    0.03 ^ clkbuf_0_clk/Z (CLKBUF_X3)
+                                         clknet_0_clk (net)
+                  0.01    0.00    0.03 ^ clkbuf_1_1__f_clk/A (CLKBUF_X3)
+     2    2.50    0.01    0.03    0.05 ^ clkbuf_1_1__f_clk/Z (CLKBUF_X3)
+                                         clknet_1_1__leaf_clk (net)
+                  0.01    0.00    0.05 ^ d[0]$_DFF_PN1_/CK (DFFS_X1)
+     2    4.58    0.01    0.10    0.15 ^ d[0]$_DFF_PN1_/Q (DFFS_X1)
+                                         net2 (net)
+                  0.01    0.00    0.15 ^ output2/A (BUF_X1)
+     1    1.35    0.01    0.02    0.17 ^ output2/Z (BUF_X1)
+                                         y (net)
+                  0.01    0.00    0.17 ^ y (out)
+                                  0.17   data arrival time
+
+                         10.00   10.00   clock clk (rise edge)
+                          0.00   10.00   clock network delay (propagated)
+                         -0.10    9.90   clock uncertainty
+                          0.00    9.90   clock reconvergence pessimism
+                         -1.00    8.90   output external delay
+                                  8.90   data required time
+-----------------------------------------------------------------------------
+                                  8.90   data required time
+                                 -0.17   data arrival time
+-----------------------------------------------------------------------------
+                                  8.73   slack (MET)
+
+
+
+==========================================================================
+finish report_check_types -max_slew -max_cap -max_fanout -violators
+--------------------------------------------------------------------------
+
+==========================================================================
+finish max_slew_check_slack
+--------------------------------------------------------------------------
+0.17728644609451294
+
+==========================================================================
+finish max_slew_check_limit
+--------------------------------------------------------------------------
+0.1985349953174591
+
+==========================================================================
+finish max_slew_check_slack_limit
+--------------------------------------------------------------------------
+0.8930
+
+==========================================================================
+finish max_fanout_check_slack
+--------------------------------------------------------------------------
+1.0000000150474662e+30
+
+==========================================================================
+finish max_fanout_check_limit
+--------------------------------------------------------------------------
+1.0000000150474662e+30
+
+==========================================================================
+finish max_capacitance_check_slack
+--------------------------------------------------------------------------
+23.68279457092285
+
+==========================================================================
+finish max_capacitance_check_limit
+--------------------------------------------------------------------------
+25.329599380493164
+
+==========================================================================
+finish max_capacitance_check_slack_limit
+--------------------------------------------------------------------------
+0.9350
+
+==========================================================================
+finish max_slew_violation_count
+--------------------------------------------------------------------------
+max slew violation count 0
+
+==========================================================================
+finish max_fanout_violation_count
+--------------------------------------------------------------------------
+max fanout violation count 0
+
+==========================================================================
+finish max_cap_violation_count
+--------------------------------------------------------------------------
+max cap violation count 0
+
+==========================================================================
+finish setup_violation_count
+--------------------------------------------------------------------------
+setup violation count 0
+
+==========================================================================
+finish hold_violation_count
+--------------------------------------------------------------------------
+hold violation count 0
+
+==========================================================================
+finish report_checks -path_delay max reg to reg
+--------------------------------------------------------------------------
+Startpoint: d[0]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: d[3]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock source latency
+   0.00    0.00 ^ clk (in)
+   0.03    0.03 ^ clkbuf_0_clk/Z (CLKBUF_X3)
+   0.03    0.05 ^ clkbuf_1_1__f_clk/Z (CLKBUF_X3)
+   0.00    0.05 ^ d[0]$_DFF_PN1_/CK (DFFS_X1)
+   0.09    0.14 v d[0]$_DFF_PN1_/Q (DFFS_X1)
+   0.05    0.20 v _5_/Z (XOR2_X1)
+   0.00    0.20 v d[3]$_DFF_PN1_/D (DFFS_X1)
+           0.20   data arrival time
+
+  10.00   10.00   clock clk (rise edge)
+   0.00   10.00   clock source latency
+   0.00   10.00 ^ clk (in)
+   0.03   10.03 ^ clkbuf_0_clk/Z (CLKBUF_X3)
+   0.03   10.05 ^ clkbuf_1_1__f_clk/Z (CLKBUF_X3)
+   0.00   10.05 ^ d[3]$_DFF_PN1_/CK (DFFS_X1)
+  -0.10    9.95   clock uncertainty
+   0.00    9.95   clock reconvergence pessimism
+  -0.04    9.91   library setup time
+           9.91   data required time
+---------------------------------------------------------
+           9.91   data required time
+          -0.20   data arrival time
+---------------------------------------------------------
+           9.72   slack (MET)
+
+
+
+==========================================================================
+finish report_checks -path_delay min reg to reg
+--------------------------------------------------------------------------
+Startpoint: d[2]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: d[1]$_DFF_PN1_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock source latency
+   0.00    0.00 ^ clk (in)
+   0.03    0.03 ^ clkbuf_0_clk/Z (CLKBUF_X3)
+   0.03    0.05 ^ clkbuf_1_0__f_clk/Z (CLKBUF_X3)
+   0.00    0.05 ^ d[2]$_DFF_PN1_/CK (DFFS_X1)
+   0.08    0.14 v d[2]$_DFF_PN1_/Q (DFFS_X1)
+   0.00    0.14 v d[1]$_DFF_PN1_/D (DFFS_X1)
+           0.14   data arrival time
+
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock source latency
+   0.00    0.00 ^ clk (in)
+   0.03    0.03 ^ clkbuf_0_clk/Z (CLKBUF_X3)
+   0.03    0.05 ^ clkbuf_1_0__f_clk/Z (CLKBUF_X3)
+   0.00    0.05 ^ d[1]$_DFF_PN1_/CK (DFFS_X1)
+   0.05    0.10   clock uncertainty
+   0.00    0.10   clock reconvergence pessimism
+   0.00    0.11   library hold time
+           0.11   data required time
+---------------------------------------------------------
+           0.11   data required time
+          -0.14   data arrival time
+---------------------------------------------------------
+           0.03   slack (MET)
+
+
+
+==========================================================================
+finish critical path target clock latency max path
+--------------------------------------------------------------------------
+0
+
+==========================================================================
+finish critical path target clock latency min path
+--------------------------------------------------------------------------
+0
+
+==========================================================================
+finish critical path source clock latency min path
+--------------------------------------------------------------------------
+0
+
+==========================================================================
+finish critical path delay
+--------------------------------------------------------------------------
+0.1720
+
+==========================================================================
+finish critical path slack
+--------------------------------------------------------------------------
+8.7280
+
+==========================================================================
+finish slack div critical path delay
+--------------------------------------------------------------------------
+5074.418605
+
+==========================================================================
+finish report_power
+--------------------------------------------------------------------------
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power (Watts)
+----------------------------------------------------------------
+Sequential             1.46e-06   0.00e+00   3.45e-07   1.80e-06  30.4%
+Combinational          2.43e-08   3.81e-08   7.14e-08   1.34e-07   2.3%
+Clock                  2.83e-06   1.08e-06   9.17e-08   4.00e-06  67.3%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  4.31e-06   1.12e-06   5.08e-07   5.93e-06 100.0%
+                          72.6%      18.8%       8.6%

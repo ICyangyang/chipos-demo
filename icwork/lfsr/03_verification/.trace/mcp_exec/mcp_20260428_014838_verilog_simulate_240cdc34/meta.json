@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260428_014838_verilog_simulate_240cdc34",
+  "tool_name": "verilog_simulate",
+  "status": "success",
+  "start_ts": 1777340918.1634972,
+  "end_ts": 1777340923.3748949,
+  "duration_ms": 5211,
+  "workspace": "/app/backend/icwork/lfsr/03_verification",
+  "trace_root": "/app/backend/icwork/lfsr/03_verification/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 3,
+  "summary": {}
+}
