@@ -1,0 +1,21 @@
+{
+  "trace_id": "t_1778115342_f387ba66",
+  "session_id": "sess_1778115221635_0tlmhq",
+  "user_id": "u_1778115221885_z4yu29c0",
+  "status": "error",
+  "workspace": "/app/backend",
+  "trace_root": "/app/backend/.trace",
+  "user_query": "设计一个38译码器",
+  "mode": "agent",
+  "entry_agent": "MasterAgent",
+  "start_ts": 1778115342.8921099,
+  "end_ts": 1778115438.8384168,
+  "duration_ms": 95946,
+  "version": 1,
+  "stats": {
+    "span_count": 7,
+    "artifact_count": 3,
+    "mcp_exec_refs": 0,
+    "event_count": 65
+  }
+}
