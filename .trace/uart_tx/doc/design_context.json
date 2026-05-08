@@ -1,0 +1,80 @@
+{
+  "module_name": "uart_tx",
+  "description": "UART Transmitter module with integrated 16x8-bit FIFO buffer, configurable frame format via LCR register, and standard UART protocol compliance.",
+  "clock_domain": "PCLK (single synchronous domain)",
+  "reset": "PRESETn (active-low asynchronous)",
+  "ports": [
+    {"name": "PCLK",        "width": 1,  "direction": "input",  "type": "clock",   "description": "System main clock, all logic triggered on rising edge"},
+    {"name": "PRESETn",     "width": 1,  "direction": "input",  "type": "reset",   "description": "Active-low asynchronous reset"},
+    {"name": "PWDATA",      "width": 8,  "direction": "input",  "type": "data",    "description": "Parallel input data, written to FIFO when tx_fifo_push is high"},
+    {"name": "tx_fifo_push","width": 1,  "direction": "input",  "type": "control", "description": "FIFO write enable, active high, one clock cycle"},
+    {"name": "LCR",         "width": 8,  "direction": "input",  "type": "config",  "description": "Line Control Register for frame format configuration"},
+    {"name": "enable",      "width": 1,  "direction": "input",  "type": "control", "description": "TX process enable, active high. When low, bit_counter stops, TX pauses"},
+    {"name": "tx_fifo_empty","width": 1,  "direction": "output", "type": "status",  "description": "FIFO empty flag, high when FIFO has no data"},
+    {"name": "tx_fifo_full", "width": 1,  "direction": "output", "type": "status",  "description": "FIFO full flag, high when FIFO cannot accept new data"},
+    {"name": "tx_fifo_count","width": 5,  "direction": "output", "type": "status",  "description": "FIFO data count, 0-16"},
+    {"name": "busy",        "width": 1,  "direction": "output", "type": "status",  "description": "TX busy flag, high during frame transmission (START to last STOP)"},
+    {"name": "TXD",         "width": 1,  "direction": "output", "type": "data",    "description": "Serial data output, idle state is high"}
+  ],
+  "sub_modules": [
+    {
+      "name": "uart_tx_fifo",
+      "description": "16x8-bit synchronous FIFO buffer for TX data storage",
+      "storage": "logic[7:0] data_fifo[15:0]",
+      "pointers": {
+        "ip_count": {"width": 4, "description": "Write pointer, next write position"},
+        "op_count": {"width": 4, "description": "Read pointer, next read position"},
+        "count":   {"width": 5, "description": "Data counter, sole basis for empty/full判断"}
+      },
+      "read_through": true,
+      "concurrent_rw": "Supported - case({push,pop}) handles all 4 scenarios"
+    }
+  ],
+  "fsm": {
+    "name": "tx_control_fsm",
+    "states": ["IDLE", "START", "BIT0", "BIT1", "BIT2", "BIT3", "BIT4", "BIT5", "BIT6", "BIT7", "PARITY", "STOP1", "STOP2"],
+    "key_registers": [
+      {"name": "tx_state",    "width": "enum", "description": "Current FSM state"},
+      {"name": "bit_counter", "width": 4,      "description": "Bit period counter, 0-15 for 16 PCLK cycles per bit"},
+      {"name": "tx_buffer",   "width": 8,      "description": "Latched data byte from FIFO for transmission"}
+    ],
+    "transitions": {
+      "IDLE": "When FIFO non-empty and enable=1: pop FIFO, latch data, set busy, go to START",
+      "START": "TXD=0, count 16 cycles, go to BIT0",
+      "BIT0-BIT7": "Send data bits LSB first, TXD=tx_buffer[bit_index], skip unused bits per LCR[1:0]",
+      "PARITY": "If LCR[3]=1: calculate and send parity per LCR[5:4], then go to STOP1",
+      "STOP1": "TXD=1, mandatory stop bit, if LCR[2]=0 go to IDLE, else go to STOP2",
+      "STOP2": "TXD=1, extra stop bit for 1.5/2 stop bits config, go to IDLE"
+    }
+  },
+  "lcr_config": {
+    "bits_1_0": {"field": "data_width", "values": {"00": "5-bit", "01": "6-bit", "10": "7-bit", "11": "8-bit"}},
+    "bit_2":   {"field": "stop_bits",   "values": {"0": "1 stop bit", "1": "1.5 or 2 stop bits"}},
+    "bit_3":   {"field": "parity_en",   "values": {"0": "parity disabled", "1": "parity enabled"}},
+    "bits_5_4": {"field": "parity_type", "values": {"00": "even parity", "01": "odd parity", "10": "stick parity 1", "11": "stick parity 0"}, "condition": "LCR[3]=1"}
+  },
+  "functional_points": [
+    {"id": "FP-001", "name": "FIFO write",       "description": "Write PWDATA to FIFO when tx_fifo_push=1 and FIFO not full"},
+    {"id": "FP-002", "name": "FIFO read",        "description": "Pop data from FIFO when FSM requests, read-through design"},
+    {"id": "FP-003", "name": "FIFO concurrent RW","description": "Simultaneous push and pop: count unchanged, pointers both advance"},
+    {"id": "FP-004", "name": "FIFO status",      "description": "Output empty/full/count flags correctly"},
+    {"id": "FP-005", "name": "IDLE to START",    "description": "Detect FIFO non-empty + enable, pop and latch data, enter START"},
+    {"id": "FP-006", "name": "START bit",        "description": "Send low TXD for 16 PCLK cycles"},
+    {"id": "FP-007", "name": "Data bits LSB",    "description": "Send data bits LSB first, 5-8 bits per LCR[1:0]"},
+    {"id": "FP-008", "name": "Unused bits zero", "description": "Zero unused high bits in tx_buffer before parity calculation"},
+    {"id": "FP-009", "name": "Parity bit",       "description": "Calculate and send parity per LCR[5:4] when LCR[3]=1"},
+    {"id": "FP-010", "name": "Stop bits",        "description": "Send 1 or 1.5/2 stop bits per LCR[2]"},
+    {"id": "FP-011", "name": "Enable pause",     "description": "Pause bit_counter when enable=0, resume when enable=1"},
+    {"id": "FP-012", "name": "Async reset",      "description": "Reset all states, TXD returns to high"},
+    {"id": "FP-013", "name": "Busy flag",        "description": "busy=1 from START to last STOP, busy=0 in IDLE"},
+    {"id": "FP-014", "name": "TXD idle high",    "description": "TXD=1 when idle or in stop bits"}
+  ],
+  "baud_rate": "PCLK/16 (fixed 16x oversampling per bit)",
+  "constraints": {
+    "fifo_depth": 16,
+    "fifo_width": 8,
+    "bit_period": 16,
+    "max_data_width": 8,
+    "min_data_width": 5
+  }
+}
