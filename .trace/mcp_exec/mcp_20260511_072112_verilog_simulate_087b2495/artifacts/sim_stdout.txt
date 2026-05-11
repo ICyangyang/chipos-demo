@@ -1,0 +1,58 @@
+============================================
+  UART TX Testbench - Start
+============================================
+
+--- Test 1: Reset ---
+  [PASS] Reset state correct
+
+--- Test 2: FIFO Push & Count ---
+  [PASS] FIFO count=1, empty=0
+
+--- Test 3: FIFO Full ---
+  [PASS] FIFO full=1, count=16
+
+--- Test 4: FIFO Overflow ---
+  [PASS] Overflow protected, count still 16
+
+--- Test 5: 8N1 Frame (0x55) ---
+  [PASS] Frame matches expected
+
+--- Test 6: 8E1 Frame (0x55) ---
+  [PASS] Frame matches expected
+
+--- Test 7: 8O1 Frame (0x55) ---
+  [PASS] Frame matches expected
+
+--- Test 8: 5N1 Frame (0x1F) ---
+  [PASS] Frame matches expected
+
+--- Test 9: FIFO Drain (2 bytes) ---
+  [PASS] FIFO empty after drain
+
+--- Test 10: Enable Pause/Resume ---
+  [PASS] Frame completed after pause/resume
+
+--- Test 11: 6N1 Frame (0x3F) ---
+  [PASS] Frame matches expected
+
+--- Test 12: 7N1 Frame (0x7F) ---
+  [PASS] Frame matches expected
+
+--- Test 13: 8N1 Frame (0x00) ---
+  [PASS] Frame matches expected
+
+--- Test 14: 5E1.5 Frame (0x1F) ---
+  [PASS] Frame matches expected
+
+--- Test 15: Mid-Frame Reset ---
+  [PASS] Reset recovered correctly
+
+============================================
+  UART TX Testbench - Summary
+  PASS: 15  FAIL: 0  Total: 15
+============================================
+  *** ALL TESTS PASSED ***
+- /workspace/work/uart_tx/02_verification/tb_uart_tx.v:484: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.046 2026-02-28
+- Verilator: $finish at 21us; walltime 0.003 s; speed 13.526 ms/s
+- Verilator: cpu 0.002 s on 1 threads; allocated 6 MB

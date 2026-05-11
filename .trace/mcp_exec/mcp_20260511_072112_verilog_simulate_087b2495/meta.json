@@ -1,0 +1,14 @@
+{
+  "exec_id": "mcp_20260511_072112_verilog_simulate_087b2495",
+  "tool_name": "verilog_simulate",
+  "status": "success",
+  "start_ts": 1778484072.5852847,
+  "end_ts": 1778484078.9215004,
+  "duration_ms": 6336,
+  "workspace": "/workspace/work/uart_tx_study",
+  "trace_root": "/workspace/work/uart_tx_study/.trace",
+  "version": 1,
+  "step_count": 3,
+  "artifact_count": 3,
+  "summary": {}
+}

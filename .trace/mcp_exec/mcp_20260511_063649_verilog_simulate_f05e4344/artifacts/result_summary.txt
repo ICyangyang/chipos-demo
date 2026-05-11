@@ -1,0 +1,21 @@
+{
+  "tool": "verilog_simulate",
+  "success": true,
+  "compile_success": true,
+  "report_path": "/workspace/work/uart_tx_study/sim/report_20260511_063649.txt",
+  "artifacts": [
+    "/workspace/work/uart_tx_study/sim/report_20260511_063649.txt"
+  ],
+  "selected_backend": "verilator",
+  "fallback_triggered": false,
+  "attempts": [
+    {
+      "backend": "verilator",
+      "success": true,
+      "phase": "",
+      "error_category": "",
+      "duration_ms": 6217
+    }
+  ],
+  "sim_stdout": "============================================\n  UART TX Testbench - Start\n============================================\n\n--- Test 1: Reset ---\n  [PASS] Reset state correct\n\n--- Test 2: FIFO Push & Count ---\n  [PASS] FIFO count=1, empty=0\n\n--- Test 3: FIFO Full ---\n  [PASS] FIFO full=1, count=16\n\n--- Test 4: FIFO Overflow ---\n  [PASS] Overflow protected, count still 16\n\n--- Test 5: 8N1 Frame (0x55) ---\n  [PASS] Frame matches expected\n\n--- Test 6: 8E1 Frame (0x55) ---\n  [PASS] Frame matches expected\n\n--- Test 7: 8O1 Frame (0x55) ---\n  [PASS] Frame matches expected\n\n--- Test 8: 5N1 Frame (0x1F) ---\n  [PASS] Frame matches expected\n\n--- Test 9: FIFO Drain (2 bytes) ---\n  [PASS] FIFO empty after drain\n\n--- Test 10: Enable Pause/Resume ---\n  [PASS] Frame completed after pause/resume\n\n--- Test 11: 6N1 Frame (0x3F) ---\n  [PASS] Frame matches expected\n\n--- Test 12: 7N1 Frame (0x7F) ---\n  [PASS] Frame matches expected\n\n--- Test 13: 8N1 Frame (0x00) ---\n  [PASS] Frame matches expected\n\n--- Test 14: 5E1.5 Frame (0x1F) ---\n  [PASS] Frame matches expected\n\n--- Test 15: Mid-Frame Reset ---\n  [PASS] Reset recovered correctly\n\n============================================\n  UART TX Testbench - Summary\n  PASS: 15  FAIL: 0  Total: 15\n============================================\n  *** ALL TESTS PASSED ***\n- /workspace/work/uart_tx/02_verification/tb_uart_tx.v:477: Verilog $finish\n- S i m u l a t i o n   R e p o r t: Verilator 5.046 2026-02-28\n- Verilator: $finish at 21us; walltime 0.001 s; speed 27.113 ms/s\n- Verilator: cpu 0.001 s on 1 threads; allocated 6 MB\n"
+}

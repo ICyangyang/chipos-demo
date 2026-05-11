@@ -1,0 +1,12 @@
+{
+  "tool": "verilog_syntax_check",
+  "success": true,
+  "files": [
+    "uart_tx_fifo.v"
+  ],
+  "top_module": null,
+  "stdout": "",
+  "stderr": "",
+  "has_errors": false,
+  "command": "/opt/oss-cad-suite/bin/iverilog -Wall -o /dev/null /workspace/work/uart_tx_study/uart_tx_fifo.v"
+}
