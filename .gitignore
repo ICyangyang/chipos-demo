@@ -30,4 +30,8 @@ __pycache__/
 
 # OS
 .DS_Store
-Thumbs.db
+Thumbs.db*.vcd
+*.o
+*.a
+*.d
+obj_dir/sim_bin

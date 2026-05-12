@@ -1,0 +1,5 @@
+create_clock -name PCLK -period 10 [get_ports PCLK]
+set_input_delay -max 2 [get_ports {PWDATA tx_fifo_push LCR enable}]
+set_input_delay -min 0.5 [get_ports {PWDATA tx_fifo_push LCR enable}]
+set_output_delay -max 2 [get_ports {TXD busy tx_fifo_empty tx_fifo_full tx_fifo_count}]
+set_output_delay -min 0.5 [get_ports {TXD busy tx_fifo_empty tx_fifo_full tx_fifo_count}]
