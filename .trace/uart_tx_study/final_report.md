@@ -50,6 +50,16 @@ synth -top uart_tx                        # 顶层综合
 
 # ABC 使用 speed 脚本（而非 area 脚本），即速度优先综合
 # 时钟周期从 SDC 提取: 10000 (10ns = 100ps 单位)
+#
+# 脚本路径:
+#   综合主脚本: /opt/OpenROAD-flow-scripts/flow/scripts/synth.tcl
+#   Yosys 入口: /opt/OpenROAD-flow-scripts/flow/scripts/yosys.tcl
+#   综合前处理: /opt/OpenROAD-flow-scripts/flow/scripts/synth_preamble.tcl
+#   综合规范化: /opt/OpenROAD-flow-scripts/flow/scripts/synth_canonicalize.tcl
+#   综合指标: /opt/OpenROAD-flow-scripts/flow/scripts/synth_metrics.tcl
+#   综合ODB输出: /opt/OpenROAD-flow-scripts/flow/scripts/synth_odb.tcl
+#   ABC speed 脚本: /opt/OpenROAD-flow-scripts/flow/scripts/abc_speed.script
+#   ABC area 脚本: /opt/OpenROAD-flow-scripts/flow/scripts/abc_area.script
 ```
 
 ### 输入文件
@@ -121,6 +131,11 @@ repair_timing
   -sequence unbuffer,sizeup,swap,vt_swap  # 修复动作序列
 ```
 
+> **脚本路径:**
+> - 布图规划: `/opt/OpenROAD-flow-scripts/flow/scripts/floorplan.tcl`
+> - Tap Cell 插入: `/opt/OpenROAD-flow-scripts/flow/scripts/tapcell.tcl`
+> - PDN 生成: `/opt/OpenROAD-flow-scripts/flow/scripts/pdn.tcl`
+
 ### 输入文件
 | 文件 | 说明 |
 |------|------|
@@ -188,6 +203,14 @@ repair_design
 detailed_placement
   -max_displacement {500,100}  # 最大位移: 500 sites 水平, 100 rows 垂直
 ```
+
+> **脚本路径:**
+> - 全局布局(跳过IO): `/opt/OpenROAD-flow-scripts/flow/scripts/global_place_skip_io.tcl`
+> - IO 引脚放置: `/opt/OpenROAD-flow-scripts/flow/scripts/io_placement.tcl`
+> - 全局布局: `/opt/OpenROAD-flow-scripts/flow/scripts/global_place.tcl`
+> - 时序修复(resize): `/opt/OpenROAD-flow-scripts/flow/scripts/resize.tcl`
+> - 布局后时序修复: `/opt/OpenROAD-flow-scripts/flow/scripts/repair_timing_post_place.tcl`
+> - 详细布局: `/opt/OpenROAD-flow-scripts/flow/scripts/detail_place.tcl`
 
 ### 输入文件
 | 文件 | 说明 |
@@ -269,6 +292,9 @@ repair_timing
 detailed_placement
 ```
 
+> **脚本路径:**
+> - 时钟树综合: `/opt/OpenROAD-flow-scripts/flow/scripts/cts.tcl`
+
 ### 输入文件
 | 文件 | 说明 |
 |------|------|
@@ -349,6 +375,9 @@ repair_timing
 repair_antennas                          # 插入二极管修复天线违例
 ```
 
+> **脚本路径:**
+> - 全局布线: `/opt/OpenROAD-flow-scripts/flow/scripts/global_route.tcl`
+
 ### 输入文件
 | 文件 | 说明 |
 |------|------|
@@ -412,6 +441,9 @@ detailed_route
 # 布线后天线检查
 repair_antennas
 ```
+
+> **脚本路径:**
+> - 详细布线: `/opt/OpenROAD-flow-scripts/flow/scripts/detail_route.tcl`
 
 ### 输入文件
 | 文件 | 说明 |
@@ -478,6 +510,11 @@ analyze_power_grid
   -vsrc_net VDD                # VDD 网络
   -gnd_net VSS                 # VSS 网络
 ```
+
+> **脚本路径:**
+> - 填充单元插入: `/opt/OpenROAD-flow-scripts/flow/scripts/fillcell.tcl`
+> - 密度填充: `/opt/OpenROAD-flow-scripts/flow/scripts/density_fill.tcl`
+> - 最终报告: `/opt/OpenROAD-flow-scripts/flow/scripts/final_report.tcl`
 
 ### 输入文件
 | 文件 | 说明 |
